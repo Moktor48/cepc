@@ -1,0 +1,49 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model coalitions {
+  ID        Int       @id @default(autoincrement())
+  Coalition String    @db.VarChar(255)
+  IDContact Int?
+  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "coalitions_ibfk_1")
+
+  @@index([IDContact], map: "IDContact")
+}
+
+model contacts {
+  ID              Int          @id @default(autoincrement())
+  FirstName       String?      @db.VarChar(255)
+  LastName        String?      @db.VarChar(255)
+  Organization    String?      @db.VarChar(255)
+  LastContact     String?      @db.VarChar(255)
+  LastContactType String?      @db.VarChar(255)
+  NextContact     String?      @db.VarChar(255)
+  NextContactType String?      @db.VarChar(255)
+  Phone           String?      @db.VarChar(255)
+  Email           String?      @db.VarChar(255)
+  coalitions      coalitions[]
+  email           email[]
+  phone           phone[]
+}
+
+model email {
+  IDContact Int?
+  email     String    @id @db.VarChar(255)
+  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "email_ibfk_1")
+
+  @@index([IDContact], map: "IDContact")
+}
+
+model phone {
+  IDContact Int?
+  phone     String    @id @db.VarChar(15)
+  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "phone_ibfk_1")
+
+  @@index([IDContact], map: "IDContact")
+}
