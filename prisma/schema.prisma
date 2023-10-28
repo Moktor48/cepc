@@ -7,43 +7,79 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model coalitions {
-  ID        Int       @id @default(autoincrement())
-  Coalition String    @db.VarChar(255)
-  IDContact Int?
-  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "coalitions_ibfk_1")
-
-  @@index([IDContact], map: "IDContact")
+model coalition {
+  name         String       @id @db.VarChar(255)
+  priority     Int?         @db.Int
+  phase        Int?         @db.Int
+  last_contact DateTime?    @db.Date()
+  next_contact DateTime?    @db.Date()
+  junction     junction[]
+  coal_notes   coal_notes[]
 }
 
-model contacts {
-  ID              Int          @id @default(autoincrement())
-  FirstName       String?      @db.VarChar(255)
-  LastName        String?      @db.VarChar(255)
-  Organization    String?      @db.VarChar(255)
-  LastContact     String?      @db.VarChar(255)
-  LastContactType String?      @db.VarChar(255)
-  NextContact     String?      @db.VarChar(255)
-  NextContactType String?      @db.VarChar(255)
-  Phone           String?      @db.VarChar(255)
-  Email           String?      @db.VarChar(255)
-  coalitions      coalitions[]
-  email           email[]
-  phone           phone[]
+model contact {
+  id            Int       @id @default(autoincrement())
+  first_name    String?   @db.VarChar(255)
+  last_name     String?   @db.VarChar(255)
+  org           String?   @db.VarChar(255)
+  last_contact  DateTime? @db.Date()
+  last_con_type String?   @db.VarChar(255)
+  next_contact  DateTime? @db.Date()
+  next_con_type String?   @db.VarChar(255)
+
+  junction   junction[]
+  email      email[]
+  phone      phone[]
+  cont_notes cont_notes[]
 }
 
 model email {
-  IDContact Int?
-  email     String    @id @db.VarChar(255)
-  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "email_ibfk_1")
+  cont_id_email Int      @db.Int
+  email         String   @id @db.VarChar(255)
+  contact       contact? @relation(fields: [cont_id_email], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "email_ibfk_1")
 
-  @@index([IDContact], map: "IDContact")
+  @@index([cont_id_email], map: "cont_id_email")
 }
 
 model phone {
-  IDContact Int?
-  phone     String    @id @db.VarChar(15)
-  contacts  contacts? @relation(fields: [IDContact], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "phone_ibfk_1")
+  cont_id_phone Int      @db.Int
+  phone         String   @id @db.VarChar(15)
+  contact       contact? @relation(fields: [cont_id_phone], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phone_ibfk_1")
 
-  @@index([IDContact], map: "IDContact")
+  @@index([cont_id_phone], map: "cont_id_phone")
+}
+
+model junction {
+  id           Int    @id @default(autoincrement())
+  contact_id   Int    @db.Int
+  coalition_id String @db.VarChar(255)
+
+  contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_1")
+
+  coalition coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
+
+  @@index([contact_id], map: "contact_id")
+  @@index([coalition_id], map: "coalition_id")
+}
+
+model coal_notes {
+  id           Int      @id @default(autoincrement())
+  coalition_id String   @db.VarChar(255)
+  note         String   @db.MediumText
+  entry_date   DateTime @db.Date
+
+  coalition coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_2")
+
+  @@index([coalition_id], map: "coalition_id")
+}
+
+model cont_notes {
+  id         Int      @id @default(autoincrement())
+  contact_id Int      @db.Int
+  note       String   @db.MediumText
+  entry_date DateTime @db.Date
+
+  contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_2")
+
+  @@index([contact_id], map: "contact_id")
 }
