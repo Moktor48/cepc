@@ -1,4 +1,3 @@
-// Inquiries to specific contacts in cepc.contact
 import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
@@ -8,7 +7,7 @@ export async function GET(
     { params }: { params: {id: string } }
 ) {
     const id = params.id
-    const contact = await prisma.contact.findUnique({
+    const contact = await prisma.junction.findUnique({
         where: {
             id: parseInt(id, 10)
         }
@@ -23,7 +22,7 @@ export async function GET(
     const id = params.id
     const json = await request.json()
 
-    const updated = await prisma.contact.update({
+    const updated = await prisma.junction.update({
         where: {
             id: parseInt(id, 10)
         },
@@ -39,7 +38,7 @@ export async function GET(
     const id = params.id
     const json = await request.json()
 
-const updated = await prisma.contact.update({
+const updated = await prisma.junction.update({
     where: {
         id: parseInt(id, 10)
     },
@@ -56,7 +55,7 @@ export async function DELETE(
     const id = params.id
   
 
-const deleted = await prisma.contact.delete({
+const deleted = await prisma.junction.delete({
     where: {
         id: parseInt(id, 10)
     }

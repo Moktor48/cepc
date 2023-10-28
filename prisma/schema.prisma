@@ -11,8 +11,8 @@ model coalition {
   name         String       @id @db.VarChar(255)
   priority     Int?         @db.Int
   phase        Int?         @db.Int
-  last_contact DateTime?    @db.Date()
-  next_contact DateTime?    @db.Date()
+  last_contact String?   @db.VarChar(255)
+  next_contact String?   @db.VarChar(255)
   junction     junction[]
   coal_notes   coal_notes[]
 }
@@ -22,9 +22,9 @@ model contact {
   first_name    String?   @db.VarChar(255)
   last_name     String?   @db.VarChar(255)
   org           String?   @db.VarChar(255)
-  last_contact  DateTime? @db.Date()
+  last_contact  String?   @db.VarChar(255)
   last_con_type String?   @db.VarChar(255)
-  next_contact  DateTime? @db.Date()
+  next_contact  String?   @db.VarChar(255)
   next_con_type String?   @db.VarChar(255)
 
   junction   junction[]
@@ -66,7 +66,7 @@ model coal_notes {
   id           Int      @id @default(autoincrement())
   coalition_id String   @db.VarChar(255)
   note         String   @db.MediumText
-  entry_date   DateTime @db.Date
+  entry_date   String   @db.VarChar(255)
 
   coalition coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_2")
 
@@ -77,7 +77,7 @@ model cont_notes {
   id         Int      @id @default(autoincrement())
   contact_id Int      @db.Int
   note       String   @db.MediumText
-  entry_date DateTime @db.Date
+  entry_date String   @db.VarChar(255)
 
   contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_2")
 

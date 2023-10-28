@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-import { useEffect, useState } from "react"
-const prisma = new PrismaClient
+
+
 
 
 
@@ -20,13 +19,15 @@ function ContactReturn({FirstName, LastName, Organization, NextContact, NextCont
 
 
 async function fetchData() {
-        const cont = await prisma.contact.findMany()
-        return cont;
-    }
+
+    try{
+        fetch('/api/contact')
+  } catch (error){console.error(error)}
+  }
 
 
 export default async function ContactDue() {
-    const cont = await fetchData();
+    const cont = fetchData();
 
     return(
         <table>

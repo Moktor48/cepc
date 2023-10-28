@@ -1,31 +1,32 @@
-// Inquiries to specific contacts in cepc.contact
+// Inquiries to specific coalitions in cepc.coalition
+
 import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
 export async function GET(
     request: Request, 
-    { params }: { params: {id: string } }
+    { params }: { params: {name: string } }
 ) {
-    const id = params.id
-    const contact = await prisma.contact.findUnique({
+    const name = params.name
+    const coalition = await prisma.coalition.findUnique({
         where: {
-            id: parseInt(id, 10)
+            name: name
         }
     })
-    return NextResponse.json(contact)
+    return NextResponse.json(coalition)
   }
 
   export async function PUT(
     request: Request, 
-    { params }: { params: {id: string } }
+    { params }: { params: {name: string } }
 ) {
-    const id = params.id
+    const name = params.name
     const json = await request.json()
 
-    const updated = await prisma.contact.update({
+    const updated = await prisma.coalition.update({
         where: {
-            id: parseInt(id, 10)
+            name: name
         },
         data: json
     })
@@ -34,14 +35,14 @@ export async function GET(
 
   export async function PATCH(
     request: Request,
-    { params }: { params: {id: string } }
+    { params }: { params: {name: string } }
   ) {
-    const id = params.id
+    const name = params.name
     const json = await request.json()
 
-const updated = await prisma.contact.update({
+const updated = await prisma.coalition.update({
     where: {
-        id: parseInt(id, 10)
+        name: name
     },
     data: json
     })
@@ -51,14 +52,14 @@ const updated = await prisma.contact.update({
 
 export async function DELETE(
     request: Request,
-    { params }: { params: {id: string } }
+    { params }: { params: {name: string } }
   ) {
-    const id = params.id
+    const name = params.name
   
 
-const deleted = await prisma.contact.delete({
+const deleted = await prisma.coalition.delete({
     where: {
-        id: parseInt(id, 10)
+        name: name
     }
     })
 

@@ -1,10 +1,8 @@
-
 import React from 'react'
 
-
-export default function ContactEntry() {
+export default function EnterContact() {
     const [formData, setFormData] = React.useState(
-        {FirstName: "", LastName: "", Organization: "", Phone: "", Email: "", LastContact: "", LastContactType: "", NextContact: "", NextContactType: ""}
+        {first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
     ) 
     console.log(formData);
     const handleChange = e => {
@@ -34,122 +32,122 @@ export default function ContactEntry() {
                     type="text"
                     placeholder='First Name'
                     onChange={handleChange}
-                    name='FirstName'
-                    value={formData.FirstName}
+                    name='first_name'
+                    value={formData.first_name}
                 /><br />
                 <input 
                     type="text"
-                    placeholder='Last Name Name'
+                    placeholder='Last Name'
                     onChange={handleChange}
-                    name='LastName'
-                    value={formData.LastName}
+                    name='last_name'
+                    value={formData.last_name}
                 /><br />
                 <input 
                     type="text"
                     placeholder='Organization'
                     onChange={handleChange}
-                    name='Organization'
-                    value={formData.Organization}
+                    name='org'
+                    value={formData.org}
                 /><br />
-               <input 
+{/*               <input 
                     type="text"
                     placeholder='Phone Number'
                     onChange={handleChange}
-                    name='Phone'
-                    value={formData.Phone}
+                    name='phone'
+                    value={formData.phone}
                 /><br />
                 <input 
                     type="email"
                     placeholder='Email Address'
                     onChange={handleChange}
-                    name='Email'
-                    value={formData.Email}
-                /><br />
+                    name='email'
+                    value={formData.email}
+                /><br /> */}
                 <input 
                     type="date" 
                     id="lastConDate" 
-                    name="LastContact" 
+                    name="last_contact" 
                     onChange={handleChange}
-                    value={formData.LastContact}
+                    value={formData.last_contact}
                 /><br />
                 <label htmlFor="lastConTypePer">In-Person</label>
                 <input 
                     type="radio" 
                     id="lastConTypePer" 
-                    name="LastContactType" 
+                    name="last_con_type" 
                     value="In-Person" 
                     onChange={handleChange}
-                    checked={formData.LastContactType === "In-Person"}
+                    checked={formData.last_con_type === "In-Person"}
                 /><br />
                 <label htmlFor="lastConTypeEm">E-Mail</label>
                 <input 
                     type="radio" 
                     id="lastConTypeEm" 
-                    name="LastContactType" 
+                    name="last_con_type" 
                     value="E-Mail" 
                     onChange={handleChange}
-                    checked={formData.LastContactType === "E-Mail"}
+                    checked={formData.last_con_type === "E-Mail"}
                 /><br />
                 <label htmlFor="lastConTypePh">Phone</label>
                 <input 
                     type="radio" 
                     id="lastConTypePh" 
-                    name="LastContactType" 
+                    name="last_con_type" 
                     value="Phone" 
                     onChange={handleChange}
-                    checked={formData.LastContactType === "Phone"}
+                    checked={formData.last_con_type === "Phone"}
                 /><br />
                 <label htmlFor="lastConTypeVM">Virtual Meeting</label>
                 <input 
                     type="radio" 
                     id="lastConTypeVM" 
-                    name="LastContactType" 
+                    name="last_con_type" 
                     value="Virtual Meeting" 
                     onChange={handleChange}
-                    checked={formData.LastContactType === "Virtual Meeting"}
+                    checked={formData.last_con_type === "Virtual Meeting"}
                 /><br />
                 <input 
                     type="date" 
                     id="nextConDate" 
-                    name="NextContact" 
+                    name="next_contact" 
                     onChange={handleChange}
-                    value={formData.NextContact}
+                    value={formData.next_contact}
                 /><br />
                 <label htmlFor="nextConTypePer">In-Person</label>
                 <input 
                     type="radio" 
                     id="nextConTypePer" 
-                    name="NextContactType" 
+                    name="next_con_type" 
                     value="In-Person" 
                     onChange={handleChange}
-                    checked={formData.NextContactType === "In-Person"}
+                    checked={formData.next_con_type === "In-Person"}
                 /><br />
                 <label htmlFor="nextConTypeEm">E-Mail</label>
                 <input 
                     type="radio" 
                     id="nextConTypeEm" 
-                    name="NextContactType" 
+                    name="next_con_type" 
                     value="E-Mail" 
                     onChange={handleChange}
-                    checked={formData.NextContactType === "E-Mail"}
+                    checked={formData.next_con_type === "E-Mail"}
                 /><br />
                 <label htmlFor="nextConTypePh">Phone</label>
                 <input 
                     type="radio" 
                     id="nextConTypePh" 
-                    name="NextContactType" 
+                    name="next_con_type" 
                     value="Phone" 
                     onChange={handleChange}
-                    checked={formData.NextContactType === "Phone"}
+                    checked={formData.next_con_type === "Phone"}
                 /><br />
                 <label htmlFor="nextConTypeVM">Virtual Meeting</label>
                 <input 
                     type="radio" 
                     id="nextConTypeVM" 
-                    name="NextContactType" 
+                    name="next_con_type" 
                     value="Virtual Meeting" 
                     onChange={handleChange}
-                    checked={formData.NextContactType === "Virtual Meeting"}
+                    checked={formData.next_con_type === "Virtual Meeting"}
                 /><br />
                 <button>Submit</button>
             </form>

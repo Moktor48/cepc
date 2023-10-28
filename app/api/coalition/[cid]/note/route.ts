@@ -1,1 +1,0 @@
-// Inquiries to notes for specific coalitions in cepc.coal_notes
