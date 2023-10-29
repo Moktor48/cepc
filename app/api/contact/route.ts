@@ -6,9 +6,9 @@ const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
     const res = await request.json()
-    const {formData} = res;
+
     const result = await prisma.contact.create({
-        data: formData
+        data: res
     })
     return NextResponse.json({result})
 }
