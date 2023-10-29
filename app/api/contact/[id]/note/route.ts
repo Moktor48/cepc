@@ -3,24 +3,15 @@ import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
-
-
-export async function POST(
-    request: Request,
-    { params }: { params: { id: string }}
-    ) {
-    const json = await request.json()
-
-    const created = await prisma.cont_notes.create({
-        data: {
-            ...json,
-            coalition_id: String(params.id)
-        }
+export async function POST(request: Request) {
+    const res = await request.json()
+    const result = await prisma.cont_note.create({
+        data: res
     })
-    return new NextResponse(JSON.stringify(created), { status: 201 })
+    return NextResponse.json({result})
 }
 
 export async function GET(request: NextRequest) {
-    const contact = await prisma.cont_notes.findMany()
+    const contact = await prisma.cont_note.findMany()
     return NextResponse.json(contact)
   }

@@ -23,7 +23,6 @@ export async function GET(
 ) {
     const name = params.name
     const json = await request.json()
-
     const updated = await prisma.coalition.update({
         where: {
             name: name
@@ -39,8 +38,7 @@ export async function GET(
   ) {
     const name = params.name
     const json = await request.json()
-
-const updated = await prisma.coalition.update({
+    const updated = await prisma.coalition.update({
     where: {
         name: name
     },
@@ -55,9 +53,7 @@ export async function DELETE(
     { params }: { params: {name: string } }
   ) {
     const name = params.name
-  
-
-const deleted = await prisma.coalition.delete({
+    const deleted = await prisma.coalition.delete({
     where: {
         name: name
     }

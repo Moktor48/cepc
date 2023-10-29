@@ -14,7 +14,7 @@ model coalition {
   last_contact String?   @db.VarChar(255)
   next_contact String?   @db.VarChar(255)
   junction     junction[]
-  coal_notes   coal_notes[]
+  coal_notes   coal_note[]
 }
 
 model contact {
@@ -30,7 +30,7 @@ model contact {
   junction   junction[]
   email      email[]
   phone      phone[]
-  cont_notes cont_notes[]
+  cont_notes cont_note[]
 }
 
 model email {
@@ -62,7 +62,7 @@ model junction {
   @@index([coalition_id], map: "coalition_id")
 }
 
-model coal_notes {
+model coal_note {
   id           Int      @id @default(autoincrement())
   coalition_id String   @db.VarChar(255)
   note         String   @db.MediumText
@@ -73,7 +73,7 @@ model coal_notes {
   @@index([coalition_id], map: "coalition_id")
 }
 
-model cont_notes {
+model cont_note {
   id         Int      @id @default(autoincrement())
   contact_id Int      @db.Int
   note       String   @db.MediumText

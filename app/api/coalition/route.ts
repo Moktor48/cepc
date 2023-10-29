@@ -4,11 +4,8 @@ import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
-
-
 export async function POST(request: Request) {
     const json = await request.json()
-
     const result = await prisma.coalition.create({
         data: json
     })

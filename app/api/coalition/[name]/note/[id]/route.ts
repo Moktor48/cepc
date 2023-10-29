@@ -1,4 +1,5 @@
-// Inquiries to specific contacts in cepc.contact
+// Inquiries to notes for specific coalitions in cepc.coal_notes
+
 import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
@@ -8,7 +9,7 @@ export async function GET(
     { params }: { params: {id: string } }
 ) {
     const id = params.id
-    const contact = await prisma.contact.findUnique({
+    const contact = await prisma.coal_note.findUnique({
         where: {
             id: parseInt(id, 10)
         }
@@ -22,7 +23,7 @@ export async function PUT(
 ) {
     const id = params.id
     const json = await request.json()
-    const updated = await prisma.contact.update({
+    const updated = await prisma.coal_note.update({
         where: {
             id: parseInt(id, 10)
         },
@@ -37,7 +38,7 @@ export async function PATCH(
   ) {
     const id = params.id
     const json = await request.json()
-    const updated = await prisma.contact.update({
+    const updated = await prisma.coal_note.update({
     where: {
         id: parseInt(id, 10)
     },
@@ -52,7 +53,7 @@ export async function DELETE(
     { params }: { params: {id: string } }
   ) {
     const id = params.id
-    const deleted = await prisma.contact.delete({
+    const deleted = await prisma.coal_note.delete({
     where: {
         id: parseInt(id, 10)
     }

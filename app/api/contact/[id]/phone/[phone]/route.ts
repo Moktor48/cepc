@@ -1,16 +1,17 @@
-// Inquiries to specific contacts in cepc.contact
+// Inquiries to notes for specific coalitions in cepc.coal_notes
+
 import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
 export async function GET(
     request: Request, 
-    { params }: { params: {id: string } }
+    { params }: { params: {phone: string } }
 ) {
-    const id = params.id
-    const contact = await prisma.contact.findUnique({
+    const phone = params.phone
+    const contact = await prisma.phone.findUnique({
         where: {
-            id: parseInt(id, 10)
+            phone: phone
         }
     })
     return NextResponse.json(contact)
@@ -18,13 +19,13 @@ export async function GET(
 
 export async function PUT(
     request: Request, 
-    { params }: { params: {id: string } }
+    { params }: { params: {phone: string } }
 ) {
-    const id = params.id
+    const phone = params.phone
     const json = await request.json()
-    const updated = await prisma.contact.update({
+    const updated = await prisma.phone.update({
         where: {
-            id: parseInt(id, 10)
+            phone: phone
         },
         data: json
     })
@@ -33,13 +34,13 @@ export async function PUT(
 
 export async function PATCH(
     request: Request,
-    { params }: { params: {id: string } }
+    { params }: { params: {phone: string } }
   ) {
-    const id = params.id
+    const phone = params.phone
     const json = await request.json()
-    const updated = await prisma.contact.update({
+    const updated = await prisma.phone.update({
     where: {
-        id: parseInt(id, 10)
+        phone: phone
     },
     data: json
     })
@@ -49,12 +50,12 @@ export async function PATCH(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: {id: string } }
+    { params }: { params: {phone: string } }
   ) {
-    const id = params.id
-    const deleted = await prisma.contact.delete({
+    const phone = params.phone
+    const deleted = await prisma.phonee.delete({
     where: {
-        id: parseInt(id, 10)
+        phone: phone, 10
     }
     })
 
