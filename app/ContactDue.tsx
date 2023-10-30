@@ -1,82 +1,61 @@
-import { PrismaClient } from "@prisma/client"
+"use client";
+import ContactTable from "./ContactTable"
 import { useEffect, useState } from "react"
-const prisma = new PrismaClient
 
 
+export default function ContactDue() {
+    const [cont, setCont] = useState({first_name: "", last_name: "", org: "", last_contact: "", next_contact: "", next_con_type: ""})
+    const [isLoading, setLoading] = useState(true)
+    useEffect(() => {
+        fetch("/api/contact")
+        .then((res) => res.json())
+        .then((data) => {
+            setCont(data)
+            setLoading(false)
+        })
+      }, []);
 
-function ContactReturn({FirstName, LastName, Organization, NextContact, NextContactType}){
-    return(
+      if (isLoading) return <p>Loading...</p>
+      if (!cont) return <p>No data</p>
 
+      return(
+        <div>
+            <table>
+                <thead>
                     <tr>
-                        <td>{FirstName + " " + LastName}</td>
-                        <td>{Organization}</td>
-                        <td>{NextContact}</td>
-                        <td>{NextContactType}</td>
+                        <th>Name</th>
+                        <th>Organization</th>
+                        <th>Last Contact</th>
+                        <th>Next Contact</th>
+                        <th>Next Contact Type</th>
                     </tr>
+                </thead>
 
-
-    )
-}
-
-
-async function fetchData() {
-        const cont = await prisma.contact.findMany()
-        return cont;
+                <tbody>
+                {cont.map(con => (
+                    <ContactTable
+                        ID={con.id}
+                        FirstName={con.first_name}
+                        LastName={con.last_name}
+                        Org={con.org}
+                        LasCon={con.last_contact}
+                        NexCon={con.next_contact}
+                        NexConTyp={con.next_con_type}
+                    />)
+                )}
+                </tbody>
+            </table>
+        </div>
+      )
     }
 
-
-export default async function ContactDue() {
-    const cont = await fetchData();
-
-    return(
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>Last Contact</th>
-                    <th>Next Contact</th>
-                    <th>Next Contact Type</th> {/*Include date and whether it is set (true) or follow-up (false)*/}
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    cont.map((con) => {
-                        return(                
-                <ContactReturn
-                    key={con.id}
-                    FirstName={con.first_name}
-                    LastName={con.last_name}
-                    Organization={con.org}
-                    NextContact={con.next_contact}
-                    NextContactType={con.next_con_type}
-                    />
-                        )
-                })
-            }
-            </tbody>
-        </table>
-    )
-}
-
-
-
-
-
-
-
-/*
-End result-
-Name            Org         Last Contact            Next Contact
-Person          theirJob    asWritten               Either 1 month after LastContact or as set appointment
-
-Query should order results with nearest next contact date at the top
-Style queries so that everything in the upcoming week is highlighted/more visible
-Click-on query/link to bring to notes page where you can see all contact info and enter notes
-Checkbox for completed contact, and alerts for past-due contacts
-toMany database for dates, will track all contact dates and will allow the checkbox to remove entries from query
-
-GET all your records... array? Build a function to deconstruct the array and push the contents into the TD elements
-
-
-*/
+    /*{first_name: "", last_name: "", org: "", last_contact: "", next_contact: "", next_con_type: ""}
+    <ContactTable
+                        ID={con.id}
+                        FirstName={con.first_name}
+                        LastName={con.last_name}
+                        Org={con.organization}
+                        LasCon={con.last_contact}
+                        NexCon={con.next_contact}
+                        NexConTyp={con.next_contact_type}
+    */

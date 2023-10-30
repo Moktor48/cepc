@@ -3,9 +3,8 @@ import React from 'react'
 export default function EnterContact() {
     const [formData, setFormData] = React.useState(
         {first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
-    ) 
-    console.log(formData);
-    const handleChange = e => {
+    )
+    async function handleChange(e) { 
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -13,8 +12,7 @@ export default function EnterContact() {
             }
         })
     }    
-
-    const handleSubmit = async e => {
+    async function handleSubmit(e) {
         e.preventDefault();
         try{
           fetch('/api/contact', {
@@ -22,9 +20,9 @@ export default function EnterContact() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({formData}),
+            body: JSON.stringify(formData),
           })
-    } catch (error){console.error(error)}
+        } catch (error){console.error(error)}
     }
         return(
             <form onSubmit={handleSubmit}>
@@ -49,20 +47,6 @@ export default function EnterContact() {
                     name='org'
                     value={formData.org}
                 /><br />
-{/*               <input 
-                    type="text"
-                    placeholder='Phone Number'
-                    onChange={handleChange}
-                    name='phone'
-                    value={formData.phone}
-                /><br />
-                <input 
-                    type="email"
-                    placeholder='Email Address'
-                    onChange={handleChange}
-                    name='email'
-                    value={formData.email}
-                /><br /> */}
                 <input 
                     type="date" 
                     id="lastConDate" 

@@ -1,67 +1,53 @@
+"use client";
+import { useEffect, useState } from "react"
 
 
 
 
 
-function ContactReturn({FirstName, LastName, Organization, NextContact, NextContactType}){
-    return(
-
-                    <tr>
-                        <td>{FirstName + " " + LastName}</td>
-                        <td>{Organization}</td>
-                        <td>{NextContact}</td>
-                        <td>{NextContactType}</td>
-                    </tr>
-
-
-    )
-}
-
-
-async function fetchData() {
-
-    try{
-        fetch('/api/contact')
-  } catch (error){console.error(error)}
-  }
-
-
-export default async function ContactDue() {
-    const cont = fetchData();
-
-    return(
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>Last Contact</th>
-                    <th>Next Contact</th>
-                    <th>Next Contact Type</th> {/*Include date and whether it is set (true) or follow-up (false)*/}
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    cont.map((con) => {
-                        return(                
-                <ContactReturn
-                    key={con.id}
-                    FirstName={con.first_name}
-                    LastName={con.last_name}
-                    Organization={con.org}
-                    NextContact={con.next_contact}
-                    NextContactType={con.next_con_type}
-                    />
-                        )
+function ContactReturn(conEntry){
+    return(        
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Organization</th>
+                <th>Last Contact</th>
+                <th>Next Contact</th>
+                <th>Next Contact Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {conEntry && conEntry.map((con) => {
+            <tr key={con.id}>
+                <td>{con.first_name + " " + con.last_name}</td>
+                <td>{con.org}</td>
+                <td>{con.last_contact}</td>
+                <td>{con.next_contact}</td>
+                <td>{con.next_con_type}</td>
+            </tr>
                 })
+
             }
-            </tbody>
-        </table>
-    )
-}
+        </tbody>
+    </table>
+            )
+            }
 
-
-
+export default function ContactDue() {
+    const [conEntry, setConEntry] = useState({first_name: "", last_name: "", org: "", last_contact: "", next_contact: "", next_con_type: ""})
+    useEffect(() => {
+        fetch("/api/contact")
+        .then((res) => {return res.json();})
+        .then(data => setConEntry(data))
+      }, []);
+      
+      return(
+        <div>
+            <ContactReturn />
+        </div>
+      )
+    }
 
 
 
