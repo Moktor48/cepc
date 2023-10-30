@@ -26,7 +26,15 @@ export async function PUT(
         where: {
             id: parseInt(id, 10)
         },
-        data: json
+        data: {
+            first_name: json.first_name || null,
+            last_name: json.last_name || null,
+            org: json.org || null,
+            last_contact: json.last_contact || null,
+            last_con_type: json.last_con_type || null,
+            next_contact: json.next_contact || null,
+            next_con_type: json.next_con_type || null,
+        }
     })
     return NextResponse.json(updated)
   }

@@ -8,9 +8,9 @@ generator client {
 }
 
 model coalition {
-  name         String       @id @db.VarChar(255)
-  priority     Int?         @db.Int
-  phase        Int?         @db.Int
+  name         String    @id @db.VarChar(255)
+  priority     Int?      @db.Int
+  phase        String?   @db.VarChar(255)
   last_contact String?   @db.VarChar(255)
   next_contact String?   @db.VarChar(255)
   junction     junction[]
@@ -50,13 +50,13 @@ model phone {
 }
 
 model junction {
-  id           Int    @id @default(autoincrement())
-  contact_id   Int    @db.Int
-  coalition_id String @db.VarChar(255)
+  id           Int      @id @default(autoincrement())
+  contact_id   Int      @db.Int
+  coalition_id String   @db.VarChar(255)
 
-  contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_1")
+  contact      contact?   @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_1")
 
-  coalition coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
+  coalition    coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
 
   @@index([contact_id], map: "contact_id")
   @@index([coalition_id], map: "coalition_id")

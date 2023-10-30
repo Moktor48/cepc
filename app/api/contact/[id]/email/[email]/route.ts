@@ -27,7 +27,10 @@ export async function PUT(
         where: {
             email: email
         },
-        data: json
+        data: {
+            email: json.email || null,
+            cont_id_email: json.cont_id_email || null,
+        }
     })
     return NextResponse.json(updated)
   }

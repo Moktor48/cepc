@@ -26,7 +26,10 @@ export async function GET(
         where: {
             id: parseInt(id, 10)
         },
-        data: json
+        data: {
+            contact_id: json.contact_id || null,
+            coalition_id: json.coalition_id || null, 
+        }
     })
     return NextResponse.json(updated)
   }

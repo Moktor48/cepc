@@ -27,7 +27,10 @@ export async function PUT(
         where: {
             phone: phone
         },
-        data: json
+        data: {
+            cont_id_phone: json.cont_id_phone || null,
+            phone: json.phone || null, 
+        }
     })
     return NextResponse.json(updated)
   }

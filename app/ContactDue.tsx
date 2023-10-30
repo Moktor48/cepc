@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 
 export default function ContactDue() {
-    const [cont, setCont] = useState({first_name: "", last_name: "", org: "", last_contact: "", next_contact: "", next_con_type: ""})
+    const [cont, setCont] = useState([])
     const [isLoading, setLoading] = useState(true)
     useEffect(() => {
         fetch("/api/contact")

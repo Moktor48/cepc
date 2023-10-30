@@ -27,7 +27,11 @@ export async function PUT(
         where: {
             id: parseInt(id, 10)
         },
-        data: json
+        data: {
+            contact_id: json.contact_id || null,
+            note: json.note || null, 
+            entry_date: json.entry_date || null,  
+        }
     })
     return NextResponse.json(updated)
   }
