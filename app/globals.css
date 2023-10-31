@@ -25,3 +25,16 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+* {
+  color: yellow;
+}
+
+form {
+  background-color: lightgray;
+  color: black;
+}
+
+label {
+  color: black;
+}

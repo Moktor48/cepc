@@ -4,7 +4,6 @@ export default function AddEmail() {
     const [formData, setFormData] = React.useState(
         {email: ""}
     ) 
-    console.log(formData);
     const handleChange = e => {
         setFormData(prevFormData => {
             return {
@@ -13,8 +12,7 @@ export default function AddEmail() {
             }
         })
     }    
-
-    const handleSubmit = async e => {
+    async function handleSubmit(e) {
         e.preventDefault();
         try{
           fetch('/api/contact', {
@@ -22,7 +20,7 @@ export default function AddEmail() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({formData}),
+            body: JSON.stringify(formData),
           })
     } catch (error){console.error(error)}
     }
@@ -41,6 +39,6 @@ export default function AddEmail() {
         }
 
         /* Select box: The component should pull the id, first_name, last_name, sort by last_name,  and then make LN + ", " + FN into selectable options.
-Once selected, that person will be the FK for the phone/email. 
+Once selected, that person will be the FK for the phone/email
 
 */
