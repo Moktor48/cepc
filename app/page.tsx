@@ -1,6 +1,6 @@
 "use client";
-import ContactDue from "./ContactDue"
-import EnterContact from "./EnterContact"
+import ContactDue from "./components/ContactDue"
+import EnterContact from "./components/EnterContact"
 
 
 
