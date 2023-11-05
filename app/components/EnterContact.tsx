@@ -1,20 +1,25 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
 export default function EnterContact() {
-    const [formData, setFormData] = React.useState(
+    const [formData, setFormData] = useState(
         {first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
     )
-    async function handleChange(e) { 
+    const [isLoading, setIsLoading] = useState(false)
+
+    async function handleChange(e: any) { 
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
                 [e.target.name]: e.target.value
             }
         })
-    }    
-    async function handleSubmit(e) {
-        e.preventDefault();
-        try{
+    }
+    
+    async function handleSubmit(e: any) {
+        e.preventDefault();{
+        setIsLoading(true)
+        try {
           fetch('/api/contact', {
             method: 'POST',
             headers: {
@@ -22,12 +27,16 @@ export default function EnterContact() {
             },
             body: JSON.stringify(formData),
           })
-        } catch (error){console.error(error)}
-    }
+          setFormData({first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""})
+          setIsLoading(false)
+        } catch (error){console.error(error)
+        }
+    }}
         return(
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text"
+                    required
                     placeholder='First Name'
                     onChange={handleChange}
                     name='first_name'
@@ -35,6 +44,7 @@ export default function EnterContact() {
                 /><br />
                 <input 
                     type="text"
+                    required
                     placeholder='Last Name'
                     onChange={handleChange}
                     name='last_name'
@@ -133,7 +143,10 @@ export default function EnterContact() {
                     onChange={handleChange}
                     checked={formData.next_con_type === "Virtual Meeting"}
                 /><br />
-                <button>Submit</button>
+                <button disabled={isLoading}>
+                {isLoading && <span>Submitting...</span>}
+                {!isLoading && <span>Submit Notes</span>}
+                </button>
             </form>
         )
         }

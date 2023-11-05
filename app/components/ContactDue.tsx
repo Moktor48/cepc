@@ -11,13 +11,11 @@ function ContactTable({ID, FirstName, LastName, Org, LasCon, NexCon, NexConTyp})
     return(
         
         <tr key={ID.toString()}>
-            <Link href={`/app/person/${ID}`}>
-            <td key={ID.toString() + "fnln"}>{FirstName + " " + LastName}</td>
+            <td key={ID.toString() + "fnln"}><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
             <td key={ID.toString() + "org"}>{Org}</td>
             <td key={ID.toString() + "lcon"}>{LasCon}</td>
             <td key={ID.toString() + "ncon"}>{NexCon}</td>
             <td key={ID.toString() + "ncot"}>{NexConTyp}</td>
-            </Link>
         </tr>
     )
 }
@@ -49,10 +47,10 @@ export default function ContactDue() {
                         <th>Next Contact Type</th>
                     </tr>
                 </thead>
-
                 <tbody>
                 {cont.map(con => (
                     <ContactTable
+                        key={con.id}
                         ID={con.id}
                         FirstName={con.first_name}
                         LastName={con.last_name}

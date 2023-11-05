@@ -1,4 +1,4 @@
-"use client";
+
 import ContactDue from "./components/ContactDue"
 import EnterContact from "./components/EnterContact"
 

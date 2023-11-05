@@ -4,14 +4,26 @@ import { PrismaClient } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
-export async function GET(
-    request: Request, 
-    { params }: { params: {id: string } }
-) {
+export async function POST(request: Request,
+    { params }: { params: {id: string } }) {
+    const id = params.id    
+    const json = await request.json()
+    const result = await prisma.cont_note.create({
+        data: {
+            contact_id: parseInt(id, 10),
+            note: json.note, 
+            entry_date: json.entry_date
+        }
+    })
+    return NextResponse.json({result})
+}
+
+export async function GET(request: NextRequest,
+    { params }: { params: {id: string } }) {
     const id = params.id
-    const contact = await prisma.cont_note.findUnique({
+    const contact = await prisma.cont_note.findMany({
         where: {
-            id: parseInt(id, 10)
+            cont_id_email: parseInt(id, 10)            
         }
     })
     return NextResponse.json(contact)

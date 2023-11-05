@@ -1,44 +1,49 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 
-export default function AddEmail() {
-    const [formData, setFormData] = React.useState(
-        {email: ""}
-    ) 
-    const handleChange = e => {
-        setFormData(prevFormData => {
+export default function AddEmail(props: any) {
+    const [formEmail, setFormEmail] = React.useState(
+        {
+            email: ""
+        }
+    )
+    const [isLoading, setIsLoading] = useState(false)
+    const id = props.id
+    const handleChange = (e: any) => {
+        setFormEmail(prevFormEmail => {
             return {
-                ...prevFormData,
+                ...prevFormEmail,
                 [e.target.name]: e.target.value
             }
         })
     }    
-    async function handleSubmit(e) {
+    async function handleSubmit(e: any) {
         e.preventDefault();
+        setIsLoading(true)
         try{
-          fetch('/api/contact', {
+          fetch(`/api/contact/${id}/email`, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formEmail),
+          });
+        setFormEmail({email: ""})
+        setIsLoading(false)
     } catch (error){console.error(error)}
     }
         return(
             <form onSubmit={handleSubmit}>
                 <input 
                     type="email"
+                    required
                     placeholder='Email Address'
                     onChange={handleChange}
                     name='email'
-                    value={formData.email}
+                    value={formEmail.email}
                 /><br />
-                <button>Submit</button>
+                <button disabled={isLoading}>
+                {isLoading && <span>Submitting...</span>}
+                {!isLoading && <span>Submit Email</span>}
+                </button>
             </form>
         )
         }
-
-        /* Select box: The component should pull the id, first_name, last_name, sort by last_name,  and then make LN + ", " + FN into selectable options.
-Once selected, that person will be the FK for the phone/email
-
-*/

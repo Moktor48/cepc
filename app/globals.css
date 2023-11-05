@@ -38,3 +38,12 @@ form {
 label {
   color: black;
 }
+
+table {
+  text-align: center;
+}
+
+th, td {
+  border-width: thin;
+  
+}

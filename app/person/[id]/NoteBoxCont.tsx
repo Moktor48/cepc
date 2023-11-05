@@ -1,1 +1,0 @@
-// Lists all notes for a given contact, form at bottom to add new note
