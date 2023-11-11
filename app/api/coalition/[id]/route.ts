@@ -6,12 +6,12 @@ const prisma = new PrismaClient()
 
 export async function GET(
     request: Request, 
-    { params }: { params: {name: string } }
+    { params }: { params: {id: string} }
 ) {
-    const name = params.name
+    const id = params.id
     const coalition = await prisma.coalition.findUnique({
         where: {
-            name: name
+            id: parseInt(id, 10)
         }
     })
     return NextResponse.json(coalition)
@@ -19,13 +19,13 @@ export async function GET(
 
   export async function PUT(
     request: Request, 
-    { params }: { params: {name: string } }
+    { params }: { params: {id: string} }
 ) {
-    const name = params.name
+    const id = params.id
     const json = await request.json()
     const updated = await prisma.coalition.update({
         where: {
-            name: name
+            id: parseInt(id, 10)
         },
         data: json
     })
@@ -34,13 +34,13 @@ export async function GET(
 
   export async function PATCH(
     request: Request,
-    { params }: { params: {name: string } }
-  ) {
-    const name = params.name
+    { params }: { params: {id: string} }
+) {
+    const id = params.id
     const json = await request.json()
     const updated = await prisma.coalition.update({
     where: {
-        name: name
+        id: parseInt(id, 10)
     },
     data: json
     })
@@ -50,12 +50,12 @@ export async function GET(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: {name: string } }
-  ) {
-    const name = params.name
+    { params }: { params: {id: string} }
+) {
+    const id = params.id
     const deleted = await prisma.coalition.delete({
     where: {
-        name: name
+        id: parseInt(id, 10)
     }
     })
 

@@ -2,20 +2,12 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-
-
-
-
-
-function ContactTable({ID, FirstName, LastName, Org, LasCon, NexCon, NexConTyp}) {
-    return(
-        
+function ContactTable({ID, FirstName, LastName, Org}) {
+    return(   
         <tr key={ID.toString()}>
-            <td key={ID.toString() + "fnln"}><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
-            <td key={ID.toString() + "org"}>{Org}</td>
-            <td key={ID.toString() + "lcon"}>{LasCon}</td>
-            <td key={ID.toString() + "ncon"}>{NexCon}</td>
-            <td key={ID.toString() + "ncot"}>{NexConTyp}</td>
+            <td><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
+            <td>{Org}</td>
+
         </tr>
     )
 }
@@ -42,9 +34,6 @@ export default function ContactDue() {
                     <tr>
                         <th>Name</th>
                         <th>Organization</th>
-                        <th>Last Contact</th>
-                        <th>Next Contact</th>
-                        <th>Next Contact Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,27 +44,10 @@ export default function ContactDue() {
                         FirstName={con.first_name}
                         LastName={con.last_name}
                         Org={con.org}
-                        LasCon={con.last_contact}
-                        NexCon={con.next_contact}
-                        NexConTyp={con.next_con_type}
                     />)
                 )}
                 </tbody>
             </table>
         </div>
-
-
-
       )
     }
-
-    /*{first_name: "", last_name: "", org: "", last_contact: "", next_contact: "", next_con_type: ""}
-    <ContactTable
-                        ID={con.id}
-                        FirstName={con.first_name}
-                        LastName={con.last_name}
-                        Org={con.organization}
-                        LasCon={con.last_contact}
-                        NexCon={con.next_contact}
-                        NexConTyp={con.next_contact_type}
-    */

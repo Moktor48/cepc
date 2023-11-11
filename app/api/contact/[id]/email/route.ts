@@ -18,13 +18,12 @@ export async function POST(request: Request,
 
 export async function GET(request: NextRequest,
     { params }: { params: {id: string } }) {
-    const id = params.id
-    const contact = await prisma.email.findMany({
-        where: {
-            cont_id_email: parseInt(id, 10)            
-        }
-    })
+        const id = params.id
+        const contact = await prisma.email.findMany({
+            where: {
+                cont_id_email: parseInt(id, 10)            
+            }
+        })
     return NextResponse.json(contact)
   }
-
 // Both of these APIs work correctly

@@ -1,18 +1,18 @@
 "use client"
 import React, { useState } from 'react'
 
-export default function AddEmail(props: any) {
-    const [formEmail, setFormEmail] = React.useState(
+export default function AddPhone(props: any) {
+    const [formPhone, setFormPhone] = React.useState(
         {
-            email: ""
+            phone: ""
         }
-    )
+    ) 
     const [isLoading, setIsLoading] = useState(false)
     const id = props.id
     const handleChange = (e: any) => {
-        setFormEmail(prevFormEmail => {
+        setFormPhone(prevFormPhone => {
             return {
-                ...prevFormEmail,
+                ...prevFormPhone,
                 [e.target.name]: e.target.value
             }
         })
@@ -21,28 +21,28 @@ export default function AddEmail(props: any) {
         e.preventDefault();
         setIsLoading(true)
         try{
-          fetch(`/api/contact/${id}/email`, {
+          fetch(`/api/contact/${id}/phone`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formEmail),
-          });
-        setFormEmail({email: ""})
+            body: JSON.stringify(formPhone),
+          })
+        setFormPhone({phone: ""})
         setIsLoading(false)
     } catch (error){console.error(error)}
     }
         return(
             <form onSubmit={handleSubmit}>
                 <input 
-                    type="email"
+                    type="text"
                     required
-                    placeholder='Email Address'
+                    placeholder='Phone Number'
                     onChange={handleChange}
-                    name='email'
-                    value={formEmail.email}
+                    name='phone'
+                    value={formPhone.phone}
                 /><br />
                 <button disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Email</span>}
+                {!isLoading && <span>Submit Phone Number</span>}
                 </button>
             </form>
         )

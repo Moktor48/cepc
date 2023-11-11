@@ -1,11 +1,14 @@
 "use client"
 import React, { useState } from 'react'
 
+
+
 export default function EnterContact() {
     const [formData, setFormData] = useState(
         {first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
     )
     const [isLoading, setIsLoading] = useState(false)
+
 
     async function handleChange(e: any) { 
         setFormData(prevFormData => {
@@ -17,8 +20,14 @@ export default function EnterContact() {
     }
     
     async function handleSubmit(e: any) {
-        e.preventDefault();{
+        e.preventDefault();
+        
         setIsLoading(true)
+        const lastDateIso = new Date(formData.last_contact).toISOString();
+        formData.last_contact = lastDateIso
+        const nextDateIso = new Date(formData.next_contact).toISOString();
+        formData.next_contact =nextDateIso
+
         try {
           fetch('/api/contact', {
             method: 'POST',
@@ -29,9 +38,10 @@ export default function EnterContact() {
           })
           setFormData({first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""})
           setIsLoading(false)
+
         } catch (error){console.error(error)
         }
-    }}
+    }
         return(
             <form onSubmit={handleSubmit}>
                 <input 
@@ -145,7 +155,7 @@ export default function EnterContact() {
                 /><br />
                 <button disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Notes</span>}
+                {!isLoading && <span>Submit Contact</span>}
                 </button>
             </form>
         )

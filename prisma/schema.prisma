@@ -8,11 +8,14 @@ generator client {
 }
 
 model coalition {
-  name         String    @id @db.VarChar(255)
-  priority     Int?      @db.Int
+  id           Int       @id @default(autoincrement())
+  name         String    @db.VarChar(255)
+  priority1    Boolean   @default(false)
+  priority2    Boolean   @default(false)
+  priority3    Boolean   @default(false)
   phase        String?   @db.VarChar(255)
-  last_contact String?   @db.VarChar(255)
-  next_contact String?   @db.VarChar(255)
+  last_contact DateTime? @db.Date
+  next_contact DateTime? @db.Date
   junction     junction[]
   coal_notes   coal_note[]
 }
@@ -22,9 +25,9 @@ model contact {
   first_name    String?   @db.VarChar(255)
   last_name     String?   @db.VarChar(255)
   org           String?   @db.VarChar(255)
-  last_contact  String?   @db.VarChar(255)
+  last_contact  DateTime? @db.Date
   last_con_type String?   @db.VarChar(255)
-  next_contact  String?   @db.VarChar(255)
+  next_contact  DateTime? @db.Date
   next_con_type String?   @db.VarChar(255)
 
   junction   junction[]
@@ -52,11 +55,11 @@ model phone {
 model junction {
   id           Int      @id @default(autoincrement())
   contact_id   Int      @db.Int
-  coalition_id String   @db.VarChar(255)
+  coalition_id Int      @db.Int
 
   contact      contact?   @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_1")
 
-  coalition    coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
+  coalition    coalition? @relation(fields: [coalition_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
 
   @@index([contact_id], map: "contact_id")
   @@index([coalition_id], map: "coalition_id")
@@ -64,11 +67,11 @@ model junction {
 
 model coal_note {
   id           Int      @id @default(autoincrement())
-  coalition_id String   @db.VarChar(255)
+  coalition_id Int      @db.Int
   note         String   @db.MediumText
-  entry_date   String   @db.VarChar(255)
+  entry_date   DateTime @db.Date
 
-  coalition coalition? @relation(fields: [coalition_id], references: [name], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_2")
+  coalition coalition? @relation(fields: [coalition_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_2")
 
   @@index([coalition_id], map: "coalition_id")
 }
@@ -77,7 +80,7 @@ model cont_note {
   id         Int      @id @default(autoincrement())
   contact_id Int      @db.Int
   note       String   @db.MediumText
-  entry_date String   @db.VarChar(255)
+  entry_date DateTime @db.Date
 
   contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_2")
 

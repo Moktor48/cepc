@@ -1,3 +1,21 @@
+function ContactTable({ID, FirstName, LastName, Org}) {
+
+    return(   
+        <tr key={ID.toString()}>
+            <td key={ID.toString() + "fnln"}><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
+            <td key={ID.toString() + "org"}>{Org}</td>
+            {/*PLACEHOLDER for coalition link-up*/}
+        </tr>
+    )
+}
+
+function CoalitionData(id, Coalition) {
+    return(
+        <tr>
+            <td><Link href={`/coalition/${id}`}>{Coalition}</Link></td>
+        </tr>
+    )
+}
 /*
 
 ROOT-
@@ -61,8 +79,15 @@ DATA MANIPULATION
 
 WTF is happening with my GET request for findMany on cont_note?
 
-
-
+ADMIN PAGE ALERTS
+    Check database for contacts that have 1 to 7 days before their "next contact" listed in order closest date to farthest
+    Check DB for "next" = today (Warning for meeting) SECOND-TOP of list
+    Check DB for "next" AFTER today (Warning for overdue) TOP of list
+    So... 
+        Pull all contacts
+        Order all contacts by next date
+        Compare to "Date" and loop into table?
+        Link names to save adding contact info
 
 
 Step 1: Get the static parameters on the PERSON page
@@ -88,6 +113,23 @@ Coalition post general,get all
 Combined post specific, get all
     [id] get one, put, patch, delete
 
+PRIORITY
+    When needed, parse out
+    1, 2, 3, 12, 13, 23, 123
+
+
+FUCK YOU TIMES
+    Append T23:59:59.999Z
+
+
+
+
+Look at Jan/BC/Compact
+
+Connecting:
+Current Coalitions (Glendale, Buckeye, UHS, Clinical)
+Pending Coalitions (Stores, Colleges, Maricopa PH)
+VA (VCP, ELT, SPC)
 
 
 
@@ -96,20 +138,23 @@ Combined post specific, get all
 
 
 
+const [isChecked, setIsChecked] = useState(false)
 
+const handleClick = () => {
+    setIsChecked(!isChecked)
+}
 
+{ isChecked ? true : false }
 
+LINKING Coalitions and Contacts
 
+On individual contact page:
+"Add Coalition" (submit/entry component)
+Pull Coalitions > Dropdown menu > submit = Coalition ID (selction) and Contact ID (params from page) to POST to the JUNCTION table
+Add a "coalition" output, query-JOIN through JUNCTION and COALITION and output coalitions
 
-
-
-
-
-
-
-
-
-
+On Coalition page:
+Add a "Members" output, query-JOIN through JUNCTION and COALITION and output members from contacts 
 
 
 

@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
 export async function POST(request: Request) {
-    const json = await request.json()
+    const res = await request.json()
     const result = await prisma.coalition.create({
-        data: json
+        data: res
     })
     return NextResponse.json({result})
 }

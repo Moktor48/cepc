@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-export default function AddNote(props: any) {
+export default function AddCoalNote(props: any) {
     const [formNote, setFormNote] = React.useState(
         {
             note: "",
@@ -10,7 +10,7 @@ export default function AddNote(props: any) {
     )
     const [isLoading, setIsLoading] = useState(false)
 
-    const id = props.id
+    const id = props.coalition_id
 
     const handleChange = (e: any) => {
         setFormNote(prevFormNote => {
@@ -23,8 +23,10 @@ export default function AddNote(props: any) {
     async function handleSubmit(e: any) {
         e.preventDefault();
         setIsLoading(true)
+        const lastDateIso = new Date(formNote.entry_date).toISOString();
+        formNote.entry_date = lastDateIso
         try{
-          fetch(`/api/contact/${id}/note`, {
+          fetch(`/api/coalition/${id}/note`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(formNote),
@@ -61,3 +63,4 @@ export default function AddNote(props: any) {
             </form>
         )
         }
+    
