@@ -15,7 +15,6 @@ export default function EnterCoalition() {
 
 
     async function handleChange(e: any) { 
-
         setFormData(prevFormData => {
             return {
                 ...prevFormData,

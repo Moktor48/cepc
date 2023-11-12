@@ -6,43 +6,66 @@ import AddNote from "../../components/AddNote";
 import NoteBox from "@/app/components/NoteBox";
 import { PrismaClient } from "@prisma/client";
 import CoalitionSelect from "@/app/components/CoalitionSelect";
-const prisma = new PrismaClient()
+import DeleteContact from "@/app/components/DeleteContact";
+import ContData from "@/app/components/ContData";
+import PhoneData from "@/app/components/PhoneData";
+import CoalitionData from "@/app/components/CoalitionData";
+import EmailData from "@/app/components/EmailData";
 
-function ContData({id, fname, lname, org, lcont, ncont, ltype, ntype}){
-    const [Nex, a, b] = ncont.toISOString().split('T')
-    const [Las, c, d] = lcont.toISOString().split('T')
-    return(
-        <div>
-            <h1>{fname} {lname}</h1>
-            <p>Organization: {org}</p>
-            <p>The last contact occured on {Las} by {ltype}</p>
-            <p>The next contact is scheduled for {Nex} by {ntype}</p>
-        </div>
-    )
-}
+const prisma = new PrismaClient()
 
 export default async function Page( { params }: {params: { id: string } }) {
 
     const id = params.id;
-    const contact = await prisma.cont_note.findMany({
+    const noteData = await prisma.cont_note.findMany({
         where: {
             contact_id: parseInt(id, 10)            
         }
     })
 
-    const userData = await prisma.contact.findMany({
+    const contactData = await prisma.contact.findMany({
         where: {
             id: parseInt(id, 10)             
         }
     })
 
+    const phoneData = await prisma.phone.findMany({
+        where: {
+            cont_id_phone: parseInt(id, 10)            
+        }
+    })
 
+    const emailData = await prisma.email.findMany({
+        where: {
+            cont_id_email: parseInt(id, 10)            
+        }
+    })
+//No! JOIN tables here for result
+    const juncData = await prisma.junction.findMany({
+        where: {
+            contact_id: parseInt(id, 10)            
+        }
+    })
+    const merged = []
+    for (let i=0; i < juncData.length; i++){
+        merged.push(juncData[i].coalition_id)
+    }
+    const coalitionData = []
+    for (let i=0; i < merged.length; i++){
+        let mergeCoal = await prisma.coalition.findMany({
+            where: {
+                id: merged[i]
+            }
+        })
+        coalitionData.push(mergeCoal)
+    }
 
+//End of crazy Coalition query: It works! Now to figure out how to get it to show up?
     return(
         <div>
-            {userData.map((dat: any) => (    
+            {contactData.map((dat: any) => (    
                 <ContData
-                    key={dat.id}
+                    key={dat.id + 34}
                     id={dat.id}
                     fname={dat.first_name}
                     lname={dat.last_name}
@@ -51,6 +74,25 @@ export default async function Page( { params }: {params: { id: string } }) {
                     ncont={dat.next_contact}
                     ltype={dat.last_con_type}
                     ntype={dat.next_con_type}
+                />))}
+                <p>Phone Numbers:</p>
+            {phoneData.map((data: any) => (
+                <PhoneData
+                    key={data.phone}
+                    phone={data.phone}
+                />))}
+                <p>Email Addresses</p>
+            {emailData.map((data: any) => (
+                <EmailData
+                    key={data.email}
+                    email={data.email}
+                />))}
+                <p>Coalitions</p>
+            {coalitionData.map((data: any) => (
+                <CoalitionData
+                    key={data.id + 26}
+                    ID={data.id}
+                    Coalition={data.name}
                 />))}
                 <AddPhone 
                     id={params.id}
@@ -61,16 +103,21 @@ export default async function Page( { params }: {params: { id: string } }) {
                 <AddNote
                     id={params.id}
                 />
-            {contact.map((data: any) => (
+            {noteData.map((data: any) => (
                 <NoteBox
-                    key={data.id}
+                    key={data.id+86}
                     entry={data.entry_date}
                     note={data.note}
                 />))}
                 <CoalitionSelect 
-                    key={params.id}
+                    key={params.id+97}
                     id={params.id}
-                />                
+                />
+                <DeleteContact
+                    key={params.id+58}
+                    idx={params.id}
+                />
+
             <button><Link href={"../.."}>Go back!</Link></button>
         </div>
 

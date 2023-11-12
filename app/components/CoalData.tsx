@@ -13,6 +13,7 @@ export default function CoalData({ID, Coalition, P1, P2, P3, Phase, LasCon, NexC
             <p>Last Contact: {Las}</p>
             <p>Next Contact: {Nex}</p>
         </div>
+
         )
 }
 

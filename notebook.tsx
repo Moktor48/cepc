@@ -158,7 +158,12 @@ Add a "Members" output, query-JOIN through JUNCTION and COALITION and output mem
 
 
 
-
+Contact Deletion, lol:
+findUnique: contact: id (PK)
+findMany: note: contact_id (FK)
+findMany: phone: contact_id_phone (FK)
+findMany: email: contact_id_email (FK)
+findMany: junction: contact_id (FK)
 
 
 
