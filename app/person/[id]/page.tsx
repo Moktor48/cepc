@@ -46,20 +46,27 @@ export default async function Page( { params }: {params: { id: string } }) {
             contact_id: parseInt(id, 10)            
         }
     })
+    console.log(juncData)
     const merged = []
     for (let i=0; i < juncData.length; i++){
         merged.push(juncData[i].coalition_id)
     }
-    const coalitionData = []
+    console.log(merged)
+    const coalitionDataX = []
     for (let i=0; i < merged.length; i++){
         let mergeCoal = await prisma.coalition.findMany({
             where: {
                 id: merged[i]
             }
         })
-        coalitionData.push(mergeCoal)
+        coalitionDataX.push(mergeCoal)
     }
-
+    console.log(coalitionDataX)
+    const coalitionData = []
+    for (let i = 0; i < coalitionDataX.length; i++){
+        coalitionData.push(coalitionDataX[i][0])
+    }
+    console.log(coalitionData) 
 //End of crazy Coalition query: It works! Now to figure out how to get it to show up?
     return(
         <div>
@@ -74,45 +81,54 @@ export default async function Page( { params }: {params: { id: string } }) {
                     ncont={dat.next_contact}
                     ltype={dat.last_con_type}
                     ntype={dat.next_con_type}
-                />))}
+                />))}<br />
+
                 <p>Phone Numbers:</p>
             {phoneData.map((data: any) => (
                 <PhoneData
                     key={data.phone}
                     phone={data.phone}
-                />))}
-                <p>Email Addresses</p>
+                />))}<br />
+
+                <p>Email Addresses:</p>
             {emailData.map((data: any) => (
                 <EmailData
                     key={data.email}
                     email={data.email}
-                />))}
+                />))}<br />
+
                 <p>Coalitions</p>
             {coalitionData.map((data: any) => (
                 <CoalitionData
                     key={data.id + 26}
                     ID={data.id}
                     Coalition={data.name}
-                />))}
+                />))}<br />
+
                 <AddPhone 
                     id={params.id}
-                />
+                /><br />
+
                 <AddEmail
                     id={params.id}
-                />
+                /><br />
+
                 <AddNote
                     id={params.id}
-                />
+                /><br />
+
             {noteData.map((data: any) => (
                 <NoteBox
                     key={data.id+86}
                     entry={data.entry_date}
                     note={data.note}
-                />))}
+                />))}<br />
+
                 <CoalitionSelect 
                     key={params.id+97}
                     id={params.id}
-                />
+                /><br />
+
                 <DeleteContact
                     key={params.id+58}
                     idx={params.id}
