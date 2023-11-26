@@ -10,7 +10,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    --foreground-rgb: 255, 255, 0;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
@@ -33,6 +33,17 @@ body {
 form {
   background-color: lightgray;
   color: black;
+}
+
+option {
+  color: black;
+}
+
+button {
+  background-color: black;
+  color: yellow;
+  padding: 15px;
+
 }
 
 label {

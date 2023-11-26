@@ -10,7 +10,7 @@ export async function GET(
     const id = params.id
     const contact = await prisma.contact.findUnique({
         where: {
-            id: parseInt(id, 10)
+            id: id
         }
     })
     return NextResponse.json(contact)
@@ -24,7 +24,7 @@ export async function PUT(
     const json = await request.json()
     const updated = await prisma.contact.update({
         where: {
-            id: parseInt(id, 10)
+            id: id
         },
         data: {
             first_name: json.first_name || null,
@@ -47,11 +47,10 @@ export async function PATCH(
     const json = await request.json()
     const updated = await prisma.contact.update({
     where: {
-        id: parseInt(id, 10)
+        id: id
     },
     data: json
     })
-
     return NextResponse.json(updated)
 }
 
@@ -62,9 +61,8 @@ export async function DELETE(
     const id = params.id
     const deleted = await prisma.contact.delete({
     where: {
-        id: parseInt(id, 10)
+        id: id
     }
     })
-
     return NextResponse.json(deleted)
 }

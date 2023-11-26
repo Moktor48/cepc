@@ -1,23 +1,3 @@
-/* This component will order the contacts by their next contact date and set alerts ADMIN PAGE ALERTS
-    Check database for contacts that have 1 to 7 days before their "next contact" listed in order closest date to farthest
-    Check DB for "next" = today (Warning for meeting) SECOND-TOP of list
-    Check DB for "next" AFTER today (Warning for overdue) TOP of list
-    So... 
-        Pull all contacts
-        Order all contacts by next date
-        Compare to "Date" and loop into table?
-        Link names to save adding contact info
-        IF
-        next <= Date +7 && >= Date +1 => enter the list 
-        next = Date => Prioirty alert/warning to contact
-        next < Date => Overdue warning
-
-        pull db
-        stringify
-
-
-
-*/
 import Link from "next/link"
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient
@@ -74,7 +54,6 @@ const warnDue = await soonDue()
 
   return (
     <div>
-            
             <table>
                 <thead>
                     <tr><th colSpan={2}>Priority Contacts!</th></tr>

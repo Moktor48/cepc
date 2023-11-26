@@ -16,3 +16,5 @@ export async function GET(request: NextRequest) {
     const junction = await prisma.junction.findMany()
     return NextResponse.json(junction)
   }
+
+  

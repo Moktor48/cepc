@@ -2,70 +2,78 @@ import CoalData from "../../components/CoalData";
 import NoteBox from "@/app/components/NoteBox";
 import AddCoalNote from "../../components/AddCoalNote";
 import { PrismaClient } from "@prisma/client";
+import DeleteCoalition from "@/app/components/DeleteCoalition";
+import ContName from "@/app/components/ContName";
 const prisma = new PrismaClient()
 
 export default async function Page( { params }: {params: { id: string } }) {
 
     const id = params.id
-    const userData = await prisma.coalition.findMany({
+    const contactData = []
+    const coalitionData = await prisma.coalition.findUnique({
         where: {
-            id: (parseInt(id)),      
+            id: id     
         },
-    })
-
-    const coalData = await prisma.coal_note.findMany({
-        where: {
-            coalition_id: (parseInt(id))      
+        include: {
+            junction: true,
+            coal_note: true
         }
     })
-    console.log(userData)
+
+    const noteData = coalitionData?.coal_note
+    const juncData = coalitionData?.junction
+    console.log(juncData)
+    if(juncData){
+        for (let i = 0; i < juncData.length; i++){
+        let mergeCoal = await prisma.contact.findMany({
+            where: {
+                id: juncData[i].contact_id
+            }
+        })
+        contactData.push(mergeCoal[0])
+        }}
+
+
+
     return(
         <>
-        {userData.map((data: any) => (
+
             <CoalData
+                key={coalitionData.id}
+                ID={coalitionData.id}
+                Coalition = {coalitionData.name}
+                NexCon={coalitionData.next_contact}
+                LasCon={coalitionData.last_contact}
+                P1={coalitionData.priority1}
+                P2={coalitionData.priority2}
+                P3={coalitionData.priority3}
+                Phase={coalitionData.phase}
+            /><br />
+
+            <p>Members:</p>
+            {contactData.map((data: any) => (            
+            <ContName
                 key={data.id}
-                ID={data.id}
-                Coalition = {data.name}
-                NexCon={data.next_contact}
-                LasCon={data.last_contact}
-                P1={data.priority1}
-                P2={data.priority2}
-                P3={data.priority3}
-                Phase={data.phase}
-            />
-))}
+                fname={data.first_name} 
+                lname={data.last_name}
+            />))}<br />
+            <p>Add Coalition Notes:</p>
             <AddCoalNote
                 coalition_id={params.id}
-            />
-        {coalData.map((data: any) => (
+            /><br />
+            <p>Coalition notes:</p>
+            {noteData.map((data: any) => (
             <NoteBox
                 key={data.id}
                 entry={data.entry_date}
                 note={data.note}
-            />))}
+            />))}<br />
 
+
+            <DeleteCoalition 
+                key={id}
+                idx={id}
+            />
         </>
     )
 }
-/*
-<>
-<h1>Coalitions Page</h1>
-{userData.map((data) => (
-<div>
-    <Link href={`/${data.name}`}>{data.name}</Link>
-
-</div>))}
-</>) 
-
-    const id = params.id;
-    const contact = await prisma.cont_note.findUnique({
-        where: {
-            name: name         
-        }
-    })
-    const userData = await GetUser(id)
-
-    console.log(contact)
-
-
-*/

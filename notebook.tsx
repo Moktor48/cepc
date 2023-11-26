@@ -165,10 +165,28 @@ findMany: phone: contact_id_phone (FK)
 findMany: email: contact_id_email (FK)
 findMany: junction: contact_id (FK)
 
+random keys:
+onSubmit: 
+    const randomID = "contact" + Math.floor(Math.random() * 1000000000).toString()
 
+contact done
+coalition done
+junction done
+contact note done
+coalition note done
 
+Fix API
+Every POST request must include new random ID
+contact
+contact[id]note../email/phone
+coalition
+coalition[id]note
+junction
+const randomID = "contact" + Math.floor(Math.random() * 1000000000).toString()
 
+DATES:
 
 
 
 */
+

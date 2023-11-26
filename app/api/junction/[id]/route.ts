@@ -9,7 +9,7 @@ export async function GET(
     const id = params.id
     const contact = await prisma.junction.findUnique({
         where: {
-            id: parseInt(id, 10)
+            id: id
         }
     })
     return NextResponse.json(contact)
@@ -24,7 +24,7 @@ export async function GET(
 
     const updated = await prisma.junction.update({
         where: {
-            id: parseInt(id, 10)
+            id: id
         },
         data: {
             contact_id: json.contact_id || null,
@@ -43,7 +43,7 @@ export async function GET(
 
 const updated = await prisma.junction.update({
     where: {
-        id: parseInt(id, 10)
+        id: id
     },
     data: json
     })
@@ -60,7 +60,7 @@ export async function DELETE(
 
 const deleted = await prisma.junction.delete({
     where: {
-        id: parseInt(id, 10)
+        id: id
     }
     })
 

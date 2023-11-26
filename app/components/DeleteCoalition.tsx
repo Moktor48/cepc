@@ -1,10 +1,10 @@
 "use client"
-export default function DeleteContact({idx}){
+export default function DeleteCoalition({idx}){
         const id = idx
         async function handleDelete(e: any){
         e.preventDefault()
                     try {
-                      fetch(`/api/contact/${id}`, 
+                      fetch(`/api/coalition/${id}`, 
                       {method: 'DELETE',}
                       )} 
                       catch (error){console.error(error)
@@ -13,7 +13,7 @@ export default function DeleteContact({idx}){
   return (
     <div>
         <button onClick={handleDelete}>
-            Delete Contact
+            Delete Coalition
         </button>
     </div>
   )

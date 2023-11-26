@@ -3,10 +3,12 @@ import { useState, useEffect, useRef } from "react";
 
 export default function CoalitionSelect({id}){
 const [isLoading, setIsLoading] = useState(false)
-const [formData, setFormData] = useState({contact_id: parseInt(id), coalition_id: 0})
+const [formData, setFormData] = useState({id: "", contact_id: "", coalition_id: ""})
 const [coalData, setCoalData] = useState([])
-const [value, setValue] = useState("")
+const [value, setValue] = useState("choose")
 
+const contID = id
+const randomID = "junc" + Math.floor(Math.random() * 1000000000).toString()
 useEffect(() => {
     setIsLoading(true)
     fetch("/api/coalition")
@@ -17,19 +19,20 @@ useEffect(() => {
     })
   }, []);
 
-function SelOpt({id, name}){
+function SelOpt({clid, name}){
     return(
-        <option value={id} id={id}>{name}</option>
+        <option value={clid} id={clid}>{name}</option>
     )
   }
 
-  async function handleChange(e: any) {
+async function handleChange(e: any) {
     setValue(e.target.value) 
     setFormData(prevFormData => {
         return {
             ...prevFormData,
-            coalition_id: parseInt(e.target.value)
-
+            id: randomID,
+            contact_id: contID,
+            coalition_id: e.target.value
         }
     })
 }
@@ -37,10 +40,6 @@ function SelOpt({id, name}){
 async function handleSubmit(e: any) {
     e.preventDefault();
     setIsLoading(true)
-    //const a = parseInt(id)
-    //const b = parseInt(value)
-    //console.log(a, b)
-    setFormData({contact_id: id, coalition_id: value})
     console.log(formData)
     try {
       fetch('/api/junction', {
@@ -50,8 +49,7 @@ async function handleSubmit(e: any) {
         },
         body: JSON.stringify(formData),
       })
-      
-      setFormData({contact_id: parseInt(id), coalition_id: 0})
+      setFormData({id: "", contact_id: "", coalition_id: ""})
       setIsLoading(false)
     } catch (error){console.error(error)
     }
@@ -62,9 +60,10 @@ async function handleSubmit(e: any) {
             {coalData.map((data: any) => (
                 <SelOpt                 
                 key={data.id}
-                id={data.id}
+                clid={data.id}
                 name={data.name}
                 />))}
+                <option disabled value='choose' id="89769876">Choose...</option>
             </select>
             <button type="submit" disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}

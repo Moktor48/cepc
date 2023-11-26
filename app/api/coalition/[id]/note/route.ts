@@ -10,7 +10,8 @@ export async function POST(request: Request,
     const json = await request.json()
     const result = await prisma.coal_note.create({
         data: {
-            coalition_id: parseInt(id, 10),
+            id: json.id,
+            coalition_id: id,
             note: json.note, 
             entry_date: json.entry_date
         }
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest,
         const json = await request.json()
     const req = await prisma.coal_note.findMany({
         where: {
-            coalition_id: parseInt(id, 10)            
+            coalition_id: id         
         }
     })
     return NextResponse.json(req)

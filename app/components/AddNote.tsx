@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 export default function AddNote(props: any) {
     const [formNote, setFormNote] = React.useState(
         {
+            id: "",
             note: "",
             entry_date: ""
         }
@@ -23,6 +24,8 @@ export default function AddNote(props: any) {
     async function handleSubmit(e: any) {
         e.preventDefault();
         setIsLoading(true)
+        const randomID = "contnote" + Math.floor(Math.random() * 1000000000).toString()
+        formNote.id = randomID
         const nextDateIso = new Date(formNote.entry_date).toISOString();
         formNote.entry_date = nextDateIso
         try{
@@ -32,6 +35,7 @@ export default function AddNote(props: any) {
             body: JSON.stringify(formNote),
           });
         setFormNote({
+            id: "",
             note: "",
             entry_date: ""
         })

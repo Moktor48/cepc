@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 export default function EnterContact() {
     const [formData, setFormData] = useState(
-        {first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
+        {id: "", first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
     )
     const [isLoading, setIsLoading] = useState(false)
 
@@ -23,6 +23,8 @@ export default function EnterContact() {
         e.preventDefault();
         
         setIsLoading(true)
+        const randomID = "contact" + Math.floor(Math.random() * 1000000000).toString()
+        formData.id = randomID
         const lastDateIso = new Date(formData.last_contact).toISOString();
         formData.last_contact = lastDateIso
         const nextDateIso = new Date(formData.next_contact).toISOString();
@@ -36,7 +38,7 @@ export default function EnterContact() {
             },
             body: JSON.stringify(formData),
           })
-          setFormData({first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""})
+          setFormData({id: "", first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""})
           setIsLoading(false)
 
         } catch (error){console.error(error)
@@ -154,8 +156,8 @@ export default function EnterContact() {
                     checked={formData.next_con_type === "Virtual Meeting"}
                 /><br />
                 <button disabled={isLoading}>
-                {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Contact</span>}
+                {isLoading && <span className="text-red bg-black">Submitting...</span>}
+                {!isLoading && <span className="text-black bg-yellow-200">Submit Contact</span>}
                 </button>
             </form>
         )

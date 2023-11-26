@@ -1,10 +1,19 @@
-// Literally just a div to place the note return, should be general use, use params to differentiate
+"use client"
 
-export default function NoteBox({entry, note}) {
+export default function NoteBox({id, conID, entry, note}) {
   const [Nex, a, b] = entry.toISOString().split('T')
+  function handleClick() {
+    try {
+      fetch(`/api/contact/${[conID]}/note/${[id]}`, {
+        method: 'DELETE',
+      })
+    } finally {
+  
+    }
+  }
   return (
     <div className="bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
-        <p>Date: {Nex}</p>
+        <span>Date: {Nex}  <button onClick={handleClick} className="text-red-600">X</button></span>
         <p>Note: {note}</p>
     </div>
   )

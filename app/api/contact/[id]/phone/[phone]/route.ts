@@ -56,9 +56,9 @@ export async function DELETE(
     { params }: { params: {phone: string } }
   ) {
     const phone = params.phone
-    const deleted = await prisma.phonee.delete({
+    const deleted = await prisma.phone.delete({
     where: {
-        phone: phone, 10
+        phone: phone
     }
     })
 

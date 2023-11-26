@@ -1,4 +1,3 @@
-
 import AddPhone from "../../components/AddPhone";
 import Link from "next/link";
 import AddEmail from "../../components/AddEmail";
@@ -15,128 +14,119 @@ import EmailData from "@/app/components/EmailData";
 const prisma = new PrismaClient()
 
 export default async function Page( { params }: {params: { id: string } }) {
-
     const id = params.id;
-    const noteData = await prisma.cont_note.findMany({
+    const coalitionData = [] 
+    const contactData = await prisma.contact.findUnique({
         where: {
-            contact_id: parseInt(id, 10)            
+        id: id
+        },
+        include: {
+        phone: true,
+        email: true,
+        junction: true,
+        cont_note: true,
         }
     })
-
-    const contactData = await prisma.contact.findMany({
-        where: {
-            id: parseInt(id, 10)             
-        }
-    })
-
-    const phoneData = await prisma.phone.findMany({
-        where: {
-            cont_id_phone: parseInt(id, 10)            
-        }
-    })
-
-    const emailData = await prisma.email.findMany({
-        where: {
-            cont_id_email: parseInt(id, 10)            
-        }
-    })
-//No! JOIN tables here for result
-    const juncData = await prisma.junction.findMany({
-        where: {
-            contact_id: parseInt(id, 10)            
-        }
-    })
+    const phoneData = contactData?.phone
+    const emailData = contactData?.email
+    const noteData = contactData?.cont_note
+    const juncData = contactData?.junction
     console.log(juncData)
-    const merged = []
-    for (let i=0; i < juncData.length; i++){
-        merged.push(juncData[i].coalition_id)
-    }
-    console.log(merged)
-    const coalitionDataX = []
-    for (let i=0; i < merged.length; i++){
-        let mergeCoal = await prisma.coalition.findMany({
-            where: {
-                id: merged[i]
-            }
-        })
-        coalitionDataX.push(mergeCoal)
-    }
-    console.log(coalitionDataX)
-    const coalitionData = []
-    for (let i = 0; i < coalitionDataX.length; i++){
-        coalitionData.push(coalitionDataX[i][0])
-    }
-    console.log(coalitionData) 
-//End of crazy Coalition query: It works! Now to figure out how to get it to show up?
-    return(
-        <div>
-            {contactData.map((dat: any) => (    
-                <ContData
-                    key={dat.id + 34}
-                    id={dat.id}
-                    fname={dat.first_name}
-                    lname={dat.last_name}
-                    org={dat.org}
-                    lcont={dat.last_contact}
-                    ncont={dat.next_contact}
-                    ltype={dat.last_con_type}
-                    ntype={dat.next_con_type}
+
+
+    if(juncData){
+
+    for (let i = 0; i < juncData.length; i++){
+// Inside LOOP
+    let mergeCoal = await prisma.coalition.findMany({
+        where: {
+            id: juncData[i].coalition_id
+        }
+    })
+    coalitionData.push(mergeCoal[0])
+    console.log(coalitionData)
+
+
+// Inside LOOP,     coalData = mergeCoal.concat(juncData)
+    }}
+
+
+return(
+    <div>
+            <ContData
+                key={contactData.id + "cd"}
+                id={contactData.id}
+                fname={contactData.first_name}
+                lname={contactData.last_name}
+                org={contactData.org}
+                lcont={contactData.last_contact}
+                ncont={contactData.next_contact}
+                ltype={contactData.last_con_type}
+                ntype={contactData.next_con_type}
+                /><br />
+
+            <p>Phone Numbers:</p>
+            {phoneData.map((data: any) => (  
+            <PhoneData
+                key={data.phone}
+                id={id}
+                phone={data.phone} 
                 />))}<br />
 
-                <p>Phone Numbers:</p>
-            {phoneData.map((data: any) => (
-                <PhoneData
-                    key={data.phone}
-                    phone={data.phone}
+            <p>Email Addresses:</p>
+            {emailData.map((data: any) => (      
+            <EmailData
+                key={data.email}
+                id={id}
+                email={data.email} 
                 />))}<br />
 
-                <p>Email Addresses:</p>
-            {emailData.map((data: any) => (
-                <EmailData
-                    key={data.email}
-                    email={data.email}
-                />))}<br />
-
-                <p>Coalitions</p>
+            <p>Coalitions</p>
             {coalitionData.map((data: any) => (
-                <CoalitionData
-                    key={data.id + 26}
-                    ID={data.id}
-                    Coalition={data.name}
+            <CoalitionData
+                key={data.id + "coal"}
+                ID={data.id}
+                Coalition={data.name}
+                conID={id}
+                junc={juncData}
                 />))}<br />
 
-                <AddPhone 
-                    id={params.id}
-                /><br />
-
-                <AddEmail
-                    id={params.id}
-                /><br />
-
-                <AddNote
-                    id={params.id}
-                /><br />
-
-            {noteData.map((data: any) => (
-                <NoteBox
-                    key={data.id+86}
-                    entry={data.entry_date}
-                    note={data.note}
+            <p>Notes:</p>
+            {noteData.map((data: any) => (    
+            <NoteBox
+                key={data.id + "note"}
+                id={data.id}
+                conID={id}
+                entry={data.entry_date}
+                note={data.note} 
                 />))}<br />
 
-                <CoalitionSelect 
-                    key={params.id+97}
-                    id={params.id}
-                /><br />
+            <AddPhone
+                key={id + "phn"} 
+                id={id}
+            /><br />
 
-                <DeleteContact
-                    key={params.id+58}
-                    idx={params.id}
-                />
+            <AddEmail
+                key={id + "eml"}
+                id={id}
+            /><br />
 
-            <button><Link href={"../.."}>Go back!</Link></button>
-        </div>
+            <AddNote
+                key={id + "nt"}
+                id={id}
+            /><br />
 
-    )
-}
+            <CoalitionSelect 
+                key={id + "cs"}
+                id={id}
+            /><br />
 
+            <DeleteContact
+                key={id + "dc"}
+                idx={id}
+            />
+
+        <button><Link href={"../.."}>Go back!</Link></button>
+    </div>
+
+)}

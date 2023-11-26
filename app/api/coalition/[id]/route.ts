@@ -11,7 +11,7 @@ export async function GET(
     const id = params.id
     const coalition = await prisma.coalition.findUnique({
         where: {
-            id: parseInt(id, 10)
+            id: id
         }
     })
     return NextResponse.json(coalition)
@@ -25,7 +25,7 @@ export async function GET(
     const json = await request.json()
     const updated = await prisma.coalition.update({
         where: {
-            id: parseInt(id, 10)
+            id: id
         },
         data: json
     })
@@ -40,7 +40,7 @@ export async function GET(
     const json = await request.json()
     const updated = await prisma.coalition.update({
     where: {
-        id: parseInt(id, 10)
+        id: id
     },
     data: json
     })
@@ -55,7 +55,7 @@ export async function DELETE(
     const id = params.id
     const deleted = await prisma.coalition.delete({
     where: {
-        id: parseInt(id, 10)
+        id: id
     }
     })
 

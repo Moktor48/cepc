@@ -8,7 +8,7 @@ generator client {
 }
 
 model coalition {
-  id           Int       @id @default(autoincrement())
+  id           String    @id
   name         String    @db.VarChar(255)
   priority1    Boolean   @default(false)
   priority2    Boolean   @default(false)
@@ -17,11 +17,11 @@ model coalition {
   last_contact DateTime? @db.Date
   next_contact DateTime? @db.Date
   junction     junction[]
-  coal_notes   coal_note[]
+  coal_note   coal_note[]
 }
 
 model contact {
-  id            Int       @id @default(autoincrement())
+  id            String    @id
   first_name    String?   @db.VarChar(255)
   last_name     String?   @db.VarChar(255)
   org           String?   @db.VarChar(255)
@@ -33,56 +33,56 @@ model contact {
   junction   junction[]
   email      email[]
   phone      phone[]
-  cont_notes cont_note[]
+  cont_note cont_note[]
 }
 
 model email {
-  cont_id_email Int      @db.Int
+  cont_id_email String   @db.VarChar(30)
   email         String   @id @db.VarChar(255)
-  contact       contact? @relation(fields: [cont_id_email], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "email_ibfk_1")
+  contact       contact? @relation(fields: [cont_id_email], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "email_ibfk_1")
 
   @@index([cont_id_email], map: "cont_id_email")
 }
 
 model phone {
-  cont_id_phone Int      @db.Int
+  cont_id_phone String   @db.VarChar(30)
   phone         String   @id @db.VarChar(15)
-  contact       contact? @relation(fields: [cont_id_phone], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "phone_ibfk_1")
+  contact       contact? @relation(fields: [cont_id_phone], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "phone_ibfk_1")
 
   @@index([cont_id_phone], map: "cont_id_phone")
 }
 
 model junction {
-  id           Int      @id @default(autoincrement())
-  contact_id   Int      @db.Int
-  coalition_id Int      @db.Int
+  id           String   @id 
+  contact_id   String   @db.VarChar(30)
+  coalition_id String   @db.VarChar(30)
 
-  contact      contact?   @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_1")
+  contact      contact?   @relation(fields: [contact_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "cont_ibfk_1")
 
-  coalition    coalition? @relation(fields: [coalition_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_1")
+  coalition    coalition? @relation(fields: [coalition_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "coal_ibfk_1")
 
   @@index([contact_id], map: "contact_id")
   @@index([coalition_id], map: "coalition_id")
 }
 
 model coal_note {
-  id           Int      @id @default(autoincrement())
-  coalition_id Int      @db.Int
+  id           String   @id 
+  coalition_id String   @db.VarChar(30)
   note         String   @db.MediumText
   entry_date   DateTime @db.Date
 
-  coalition coalition? @relation(fields: [coalition_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "coal_ibfk_2")
+  coalition coalition? @relation(fields: [coalition_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "coal_ibfk_2")
 
   @@index([coalition_id], map: "coalition_id")
 }
 
 model cont_note {
-  id         Int      @id @default(autoincrement())
-  contact_id Int      @db.Int
+  id         String   @id 
+  contact_id String   @db.VarChar(30)
   note       String   @db.MediumText
   entry_date DateTime @db.Date
 
-  contact contact? @relation(fields: [contact_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cont_ibfk_2")
+  contact contact? @relation(fields: [contact_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "cont_ibfk_2")
 
   @@index([contact_id], map: "contact_id")
 }

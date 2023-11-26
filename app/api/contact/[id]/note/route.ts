@@ -10,21 +10,22 @@ export async function POST(request: Request,
     const json = await request.json()
     const result = await prisma.cont_note.create({
         data: {
-            contact_id: parseInt(id, 10),
+            id: json.id,
+            contact_id: id,
             note: json.note, 
             entry_date: json.entry_date
         }
     })
     return NextResponse.json({result})
 }
-// This API works
+// This API works 
 
 export async function GET(request: Request,
     { params }: { params: {id: string } }) {
     const id = params.id
     const contact = await prisma.cont_note.findMany({
         where: {
-            contact_id: parseInt(id, 10)            
+            contact_id: id            
         }
     })
     return NextResponse.json(contact)
@@ -39,7 +40,7 @@ export async function PUT(
     const json = await request.json()
     const updated = await prisma.cont_note.update({
         where: {
-            id: parseInt(id, 10)
+            id: id
         },
         data: {
             contact_id: json.contact_id || null,
@@ -58,7 +59,7 @@ export async function PATCH(
     const json = await request.json()
     const updated = await prisma.cont_note.update({
     where: {
-        id: parseInt(id, 10)
+        id: id
     },
     data: json
     })
@@ -73,7 +74,7 @@ export async function DELETE(
     const id = params.id
     const deleted = await prisma.cont_note.delete({
     where: {
-        id: parseInt(id, 10)
+        id: id
     }
     })
 

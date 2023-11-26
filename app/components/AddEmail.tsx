@@ -1,8 +1,8 @@
 "use client"
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 export default function AddEmail(props: any) {
-    const [formEmail, setFormEmail] = React.useState(
+    const [formEmail, setFormEmail] = useState(
         {
             email: ""
         }
@@ -20,7 +20,6 @@ export default function AddEmail(props: any) {
     async function handleSubmit(e: any) {
         e.preventDefault();
         setIsLoading(true)
-        console.log(formEmail)
         try{
           fetch(`/api/contact/${id}/email`, {
             method: 'POST',

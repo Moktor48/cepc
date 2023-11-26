@@ -9,7 +9,7 @@ export async function POST(request: Request,
     const json = await request.json()
     const result = await prisma.phone.create({
         data: {
-            cont_id_phone: parseInt(id, 10),
+            cont_id_phone: id,
             phone: json.phone
         }
     })
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest,
         const id = params.id
         const contact = await prisma.phone.findMany({
             where: {
-                cont_id_phone: parseInt(id, 10)
+                cont_id_phone: id
             }
         })
     return NextResponse.json(contact)

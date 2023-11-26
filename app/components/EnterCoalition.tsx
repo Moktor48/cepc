@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 export default function EnterCoalition() {
 
     const [formData, setFormData] = useState(
-        {name: "", priority1: false, priority2: false, priority3: false, phase: "", last_contact: "", next_contact: ""}
+        {id: "", name: "", priority1: false, priority2: false, priority3: false, phase: "", last_contact: "", next_contact: ""}
     )
 
     const [isChecked1, setIsChecked1] = useState(false)
@@ -41,6 +41,8 @@ export default function EnterCoalition() {
     async function handleSubmit(e: any) {
         e.preventDefault();
         setIsLoading(true)
+        const randomID = "coal" + Math.floor(Math.random() * 1000000000).toString()
+        formData.id = randomID
         formData.priority1 = isChecked1
         formData.priority2 = isChecked2
         formData.priority3 = isChecked3
@@ -56,7 +58,7 @@ export default function EnterCoalition() {
             },
             body: JSON.stringify(formData),
           })
-          setFormData({name: "", priority1: false, priority2: false, priority3: false, phase: "", last_contact: "", next_contact: ""})
+          setFormData({id: "", name: "", priority1: false, priority2: false, priority3: false, phase: "", last_contact: "", next_contact: ""})
           setIsChecked1(false)
           setIsChecked2(false)
           setIsChecked3(false)
@@ -75,9 +77,6 @@ export default function EnterCoalition() {
                     name='name'
                     value={formData.name}
                 /><br />
-
-
-
                 <input 
                     type="checkbox"
                     name="priority1"
@@ -102,9 +101,6 @@ export default function EnterCoalition() {
                 />
                 <label htmlFor="priority3">Priority 3</label>                
                 <br />
-
-
-
                 <label htmlFor="phaseEngage">Engage</label>
                 <input 
                     type="radio" 
@@ -155,10 +151,9 @@ export default function EnterCoalition() {
                     onChange={handleChange}
                     value={formData.next_contact}
                 /><br />
-                
                 <button disabled={isLoading}>
-                {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Coalition</span>}
+                {isLoading && <span className="text-red">Submitting...</span>}
+                {!isLoading && <span className="text-black bg-yellow-200">Submit Coalition</span>}
                 </button>
             </form>
         )
