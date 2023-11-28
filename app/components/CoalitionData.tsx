@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function CoalitionData({ID, Coalition, conID, junc}) {
     const juncData = junc
     const found = juncData.find((contact_id, coalition_id) => contact_id == conID && coalition_id == ID)
-    console.log(found)
+
 /*
     function handleClick() {
         try {

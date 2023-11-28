@@ -68,8 +68,6 @@ export default async function Page( { params }: {params: { id: string } }) {
                 entry={data.entry_date}
                 note={data.note}
             />))}<br />
-
-
             <DeleteCoalition 
                 key={id}
                 idx={id}

@@ -10,6 +10,7 @@ import ContData from "@/app/components/ContData";
 import PhoneData from "@/app/components/PhoneData";
 import CoalitionData from "@/app/components/CoalitionData";
 import EmailData from "@/app/components/EmailData";
+import ModContact from "@/app/components/ModContact";
 
 const prisma = new PrismaClient()
 
@@ -31,7 +32,7 @@ export default async function Page( { params }: {params: { id: string } }) {
     const emailData = contactData?.email
     const noteData = contactData?.cont_note
     const juncData = contactData?.junction
-    console.log(juncData)
+
 
 
     if(juncData){
@@ -44,7 +45,7 @@ export default async function Page( { params }: {params: { id: string } }) {
         }
     })
     coalitionData.push(mergeCoal[0])
-    console.log(coalitionData)
+
 
 
 // Inside LOOP,     coalData = mergeCoal.concat(juncData)
@@ -113,6 +114,11 @@ return(
 
             <AddNote
                 key={id + "nt"}
+                id={id}
+            /><br />
+
+            <ModContact
+                key={id + "mc"}
                 id={id}
             /><br />
 
