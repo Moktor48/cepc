@@ -1,14 +1,22 @@
+
+import Link from "next/link"
 import ContactPriority from "./components/ContactPriority"
-import EnterCoalition from "./components/EnterCoalition"
-import EnterContact from "./components/EnterContact"
+
+
+
 
 export default function App () {
+
+
 
     return(
         <div>
             <ContactPriority />
-            <EnterContact />
-            <EnterCoalition />
+            <Link href="/person?showDialog=y">Enter a Contact</Link>
+            <Link href="/coalition?showDialog=y">Enter a Coalition</Link>
+
+
+
         </div>
 
     )
