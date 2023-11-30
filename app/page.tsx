@@ -2,12 +2,7 @@
 import Link from "next/link"
 import ContactPriority from "./components/ContactPriority"
 
-
-
-
 export default function App () {
-
-
 
     return(
         <div>

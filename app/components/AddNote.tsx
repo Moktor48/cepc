@@ -1,17 +1,14 @@
 "use client"
 import React, { useState } from 'react'
 
-export default function AddNote(props: any) {
-    const [formNote, setFormNote] = React.useState(
+export default function AddNote({id, isLoading, onSub}) {
+    const [formNote, setFormNote] = useState(
         {
             id: "",
             note: "",
             entry_date: ""
         }
     )
-    const [isLoading, setIsLoading] = useState(false)
-
-    const id = props.id
 
     const handleChange = (e: any) => {
         setFormNote(prevFormNote => {
@@ -23,7 +20,8 @@ export default function AddNote(props: any) {
     }    
     async function handleSubmit(e: any) {
         e.preventDefault();
-        setIsLoading(true)
+        onSub()
+        console.log(isLoading)
         const randomID = "contnote" + Math.floor(Math.random() * 1000000000).toString()
         formNote.id = randomID
         const nextDateIso = new Date(formNote.entry_date).toISOString();
@@ -34,14 +32,17 @@ export default function AddNote(props: any) {
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(formNote),
           });
+
+        console.log(isLoading)
         setFormNote({
             id: "",
             note: "",
             entry_date: ""
         })
-        setIsLoading(false)
-    } catch (error){console.error(error)}
+        } finally {onSub()}
     }
+
+
         return(
             <form onSubmit={handleSubmit}>
                 <input 

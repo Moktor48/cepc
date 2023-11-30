@@ -1,13 +1,18 @@
 "use client"
 import React, { useState } from 'react'
 
+type formData = {
+    last_contact: string | undefined,
+    last_con_type: string | undefined,
+    next_contact: string | undefined,
+    next_con_type: string | undefined,
+}
 
-
-export default function ModContact({id}) {
-    const [formData, setFormData] = useState(
-        {last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}
+export default function ModContact({id, isLoading, onSub}) {
+    const [formData, setFormData] = useState<formData>(
+        {last_contact: undefined, last_con_type: undefined, next_contact: undefined, next_con_type: undefined}
     )
-    const [isLoading, setIsLoading] = useState(false)
+
 
 
     async function handleChange(e: any) { 
@@ -22,12 +27,14 @@ export default function ModContact({id}) {
     async function handleSubmit(e: any) {
         e.preventDefault();
         
-        setIsLoading(true)
 
+        if (formData.last_contact){
         const lastDateIso = new Date(formData.last_contact).toISOString();
-        formData.last_contact = lastDateIso
+        formData.last_contact = lastDateIso}
+
+        if (formData.next_contact){
         const nextDateIso = new Date(formData.next_contact).toISOString();
-        formData.next_contact = nextDateIso
+        formData.next_contact = nextDateIso}
         console.log(formData)
         try {
           fetch(`/api/contact/${id}`, {
@@ -37,8 +44,8 @@ export default function ModContact({id}) {
             },
             body: JSON.stringify(formData),
           })
-          setFormData({last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""})
-          setIsLoading(false)
+          setFormData({last_contact: undefined, last_con_type: undefined, next_contact: undefined, next_con_type: undefined})
+
 
         } catch (error){
             console.error(error)

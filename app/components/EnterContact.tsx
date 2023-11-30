@@ -1,8 +1,6 @@
 "use client"
 import React, { useState } from 'react'
 
-
-
 export default function EnterContact() {
     const [formData, setFormData] = useState(
         {id: "", first_name: "", last_name: "", org: "", last_contact: "", last_con_type: "", next_contact: "", next_con_type: ""}

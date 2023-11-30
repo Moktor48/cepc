@@ -1,14 +1,14 @@
 "use client"
 import { useState } from 'react'
 
-export default function AddEmail(props: any) {
+export default function AddEmail({id, isLoading, onSub}) {
     const [formEmail, setFormEmail] = useState(
         {
             email: ""
         }
     )
-    const [isLoading, setIsLoading] = useState(false)
-    const id = props.id
+
+
     const handleChange = (e: any) => {
         setFormEmail(prevFormEmail => {
             return {
@@ -19,7 +19,7 @@ export default function AddEmail(props: any) {
     }    
     async function handleSubmit(e: any) {
         e.preventDefault();
-        setIsLoading(true)
+
         try{
           fetch(`/api/contact/${id}/email`, {
             method: 'POST',
@@ -27,7 +27,7 @@ export default function AddEmail(props: any) {
             body: JSON.stringify(formEmail),
           });
         setFormEmail({email: ""})
-        setIsLoading(false)
+
     } catch (error){console.error(error)}
     }
         return(

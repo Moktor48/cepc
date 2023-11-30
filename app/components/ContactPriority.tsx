@@ -47,6 +47,7 @@ async function soonDue() {
     })
     return soonDueTime
 }
+
 export default async function ContactPriority() {
 
 const overDueA = await overDue()

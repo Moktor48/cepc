@@ -1,14 +1,13 @@
 "use client"
 import React, { useState } from 'react'
 
-export default function AddPhone(props: any) {
+export default function AddPhone({id, isLoading, onSub}) {
     const [formPhone, setFormPhone] = React.useState(
         {
             phone: ""
         }
     ) 
-    const [isLoading, setIsLoading] = useState(false)
-    const id = props.id
+
     const handleChange = (e: any) => {
         setFormPhone(prevFormPhone => {
             return {
@@ -19,7 +18,7 @@ export default function AddPhone(props: any) {
     }    
     async function handleSubmit(e: any) {
         e.preventDefault();
-        setIsLoading(true)
+
         try{
           fetch(`/api/contact/${id}/phone`, {
             method: 'POST',
@@ -27,7 +26,7 @@ export default function AddPhone(props: any) {
             body: JSON.stringify(formPhone),
           })
         setFormPhone({phone: ""})
-        setIsLoading(false)
+
     } catch (error){console.error(error)}
     }
         return(
