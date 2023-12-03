@@ -16,7 +16,7 @@ export default function ClientState({id, contactData, coalitionData, phoneData, 
     const [load, setLoad] = useState(false)
 
 useEffect(() => {
-    console.log(load)
+
 }, [load]) 
 
   return (
@@ -73,28 +73,28 @@ useEffect(() => {
                 key={id + "phn"} 
                 id={id}
                 isLoading={load}
-                onSub={() => setLoad(load => !load)}
+                onSub={() => setLoad(!load)}
             /><br />
 
             <AddEmail
                 key={id + "eml"}
                 id={id}
                 isLoading={load}
-                onSub={() => setLoad(load => !load)}
+                onSub={() => setLoad(!load)}
             /><br />
 
             <AddNote
                 key={id + "nt"}
                 id={id}
                 isLoading={load}
-                onSub={() => setLoad(load => !load)}
+                onSub={() => setLoad(!load)}
             /><br />
 
             <ModContact
                 key={id + "mc"}
                 id={id}
                 isLoading={load}
-                onSub={() => setLoad(load => !load)}
+                onSub={() => setLoad(!load)}
             /><br />
 
             <CoalitionSelect

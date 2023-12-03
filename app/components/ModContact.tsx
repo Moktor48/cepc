@@ -52,8 +52,10 @@ export default function ModContact({id, isLoading, onSub}) {
         }
     }
         return(
-            <form onSubmit={handleSubmit}>
 
+            <form className="block m-auto text-center" onSubmit={handleSubmit}>
+                <p className="block m-auto text-center">Contact Changes</p>
+                <p className="block m-auto text-center">Last Contact Date</p>
                 <input 
                     type="date" 
                     id="lastConDate" 
@@ -61,42 +63,48 @@ export default function ModContact({id, isLoading, onSub}) {
                     onChange={handleChange}
                     value={formData.last_contact}
                 /><br />
-                <label htmlFor="lastConTypePer">In-Person</label>
+                <div className="radioContainer">
                 <input 
+                    className="gridButton"
                     type="radio" 
                     id="lastConTypePer" 
                     name="last_con_type" 
                     value="In-Person" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "In-Person"}
-                /><br />
-                <label htmlFor="lastConTypeEm">E-Mail</label>
+                /><label className="gridLabel" htmlFor="lastConTypePer">In-Person</label><br />
+
                 <input 
+                    className="gridButton"
                     type="radio" 
                     id="lastConTypeEm" 
                     name="last_con_type" 
                     value="E-Mail" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "E-Mail"}
-                /><br />
-                <label htmlFor="lastConTypePh">Phone</label>
-                <input 
+                /><label  className="gridLabel" htmlFor="lastConTypeEm">E-Mail</label><br />
+                
+                <input
+                    className="gridButton" 
                     type="radio" 
                     id="lastConTypePh" 
                     name="last_con_type" 
                     value="Phone" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "Phone"}
-                /><br />
-                <label htmlFor="lastConTypeVM">Virtual Meeting</label>
+                /><label  className="gridLabel" htmlFor="lastConTypePh">Phone</label><br />
+                
                 <input 
+                    className="gridButton"                
                     type="radio" 
                     id="lastConTypeVM" 
                     name="last_con_type" 
                     value="Virtual Meeting" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "Virtual Meeting"}
-                /><br />
+                /><label  className="gridLabel" htmlFor="lastConTypeVM">Virtual Meeting</label><br />
+                </div>
+                <p className="block m-auto text-center">Next Contact Date</p>
                 <input 
                     type="date" 
                     id="nextConDate" 
@@ -104,7 +112,7 @@ export default function ModContact({id, isLoading, onSub}) {
                     onChange={handleChange}
                     value={formData.next_contact}
                 /><br />
-                <label htmlFor="nextConTypePer">In-Person</label>
+                
                 <input 
                     type="radio" 
                     id="nextConTypePer" 
@@ -112,8 +120,8 @@ export default function ModContact({id, isLoading, onSub}) {
                     value="In-Person" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "In-Person"}
-                /><br />
-                <label htmlFor="nextConTypeEm">E-Mail</label>
+                /><label htmlFor="nextConTypePer">In-Person</label><br />
+                
                 <input 
                     type="radio" 
                     id="nextConTypeEm" 
@@ -121,8 +129,8 @@ export default function ModContact({id, isLoading, onSub}) {
                     value="E-Mail" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "E-Mail"}
-                /><br />
-                <label htmlFor="nextConTypePh">Phone</label>
+                /><label htmlFor="nextConTypeEm">E-Mail</label><br />
+                
                 <input 
                     type="radio" 
                     id="nextConTypePh" 
@@ -130,8 +138,8 @@ export default function ModContact({id, isLoading, onSub}) {
                     value="Phone" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "Phone"}
-                /><br />
-                <label htmlFor="nextConTypeVM">Virtual Meeting</label>
+                /><label htmlFor="nextConTypePh">Phone</label><br />
+                
                 <input 
                     type="radio" 
                     id="nextConTypeVM" 
@@ -139,7 +147,7 @@ export default function ModContact({id, isLoading, onSub}) {
                     value="Virtual Meeting" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "Virtual Meeting"}
-                /><br />
+                /><label htmlFor="nextConTypeVM">Virtual Meeting</label><br />
                 <button disabled={isLoading}>
                 {isLoading && <span className="text-red bg-black">Submitting...</span>}
                 {!isLoading && <span className="text-black bg-yellow-200">Update Contact</span>}

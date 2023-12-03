@@ -20,26 +20,25 @@ export default function AddNote({id, isLoading, onSub}) {
     }    
     async function handleSubmit(e: any) {
         e.preventDefault();
-        onSub()
-        console.log(isLoading)
+
+        const response = {Attempt: "No response"}
         const randomID = "contnote" + Math.floor(Math.random() * 1000000000).toString()
         formNote.id = randomID
         const nextDateIso = new Date(formNote.entry_date).toISOString();
         formNote.entry_date = nextDateIso
-        try{
+
           fetch(`/api/contact/${id}/note`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(formNote),
-          });
+          })
 
-        console.log(isLoading)
         setFormNote({
             id: "",
             note: "",
             entry_date: ""
         })
-        } finally {onSub()}
+
     }
 
 

@@ -31,23 +31,30 @@ body {
 }
 
 form {
-  background-color: lightgray;
+  background-color: black;
   color: black;
+
 }
 
 option {
-  color: black;
+  color: yellow;
 }
 
 button {
   background-color: black;
   color: yellow;
   padding: 15px;
-
+  width: 100%;
 }
 
 label {
-  color: black;
+  color: yellow;
+}
+
+input {
+  display: block;
+  margin: auto;
+  width: 75%;
 }
 
 table {
@@ -57,4 +64,25 @@ table {
 th, td {
   border-width: thin;
   
+}
+
+.radioContainer {
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    ". button label ."
+    ". button label ."
+    ". button label ."
+    ". button label .";
+}
+
+.gridButton {
+  justify-self: end;
+  grid-area: button;
+}
+
+.gridLabel {
+  justify-self: start;
+  grid-area: label;
 }

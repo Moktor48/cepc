@@ -49,7 +49,7 @@ export default function Dialog({title, onClose, onOk, children}: Props) {
           {children}
           <div>
             <button 
-            onCLick={clickOk}
+            onClick={clickOk}
             >
               OK
             </button>
