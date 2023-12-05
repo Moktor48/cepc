@@ -40,13 +40,6 @@ option {
   color: yellow;
 }
 
-button {
-  background-color: black;
-  color: yellow;
-  padding: 15px;
-  width: 100%;
-}
-
 label {
   color: yellow;
 }
@@ -59,30 +52,258 @@ input {
 
 table {
   text-align: center;
+  table-layout: fixed;
+  width: 450px;
 }
 
 th, td {
-  border-width: thin;
-  
+  border-width: none;
+
 }
 
-.radioContainer {
+button {
+  background-color: #fff000;
+  border-radius: 12px;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  transition: 200ms;
+  width: auto;
+  box-sizing: border-box;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:not(:disabled):hover,
+button:not(:disabled):focus {
+  outline: 0;
+  background: #f4e603;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+button:disabled {
+  filter: saturate(0.2) opacity(0.5);
+  -webkit-filter: saturate(0.2) opacity(0.5);
+  cursor: not-allowed;
+}
+
+.container {
   display: grid;
-  grid-template-columns: 150px 150px 150px 150px;
-  grid-template-rows: auto;
-  grid-template-areas: 
-    ". button label ."
-    ". button label ."
-    ". button label ."
-    ". button label .";
+  grid-template-columns: auto 20px 150px auto;
+  grid-template-areas:
+  "header header header header"
+  "fn fn fn fn"
+  "ln ln ln ln"
+  "org org org org"
+
+  "title title title title"
+  ". date1 date1 ."
+  ". rad1 lab1 ."
+  ". rad2 lab2 ."
+  ". rad3 lab3 ."
+  ". rad4 lab4 ."
+
+  "title2 title2 title2 title2 "
+  ". date2 date2 ."
+  ". rad5 lab5 ."
+  ". rad6 lab6 ."
+  ". rad7 lab7 ."
+  ". rad8 lab8 ."
+  "tx1 tx1 tx1 tx1"
+  ". date date ."
+  "tx2 tx2 tx2 tx2"
+  ". date3 date3 ."
+  "button button button button"
+}
+.cont2 {
+  display: grid;
+  grid-template-columns: 1fr 175px 1fr;
+  grid-template-areas:
+  "header header header"
+  ". date ."
+  "textbar textbar textbar"
+  "button button button"
+
 }
 
-.gridButton {
+.cont3 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-areas:
+  "text1 text1 text1"
+  ". tab1 ."
+  ". text2 ."
+  ". tab2 ."
+}
+
+text1 {
+  grid-area: text1;
+  place-self: center;
+}
+
+text2 {
+  grid-area: text2;
+}
+
+tab1 {
+  grid-area: tab1;
+  place-self: center;
+}
+
+tab2 {
+  grid-area: tab2;
+  place-self: center;
+}
+
+.tx1 {
+  grid-area: tx1;
+}
+
+.tx2 {
+  grid-area: tx2;
+}
+
+.fn {
+  grid-area: fn;  
+}
+
+.ln {
+  grid-area: ln;  
+}
+
+.org {
+  grid-area: org;  
+}
+
+.header {
+  grid-area: header;
+}
+
+.title {
+  grid-area: title;
+}
+
+.title2 {
+  grid-area: title2;
+}
+
+.date {
+  grid-area: date;
+}
+
+.date3 {
+  grid-area: date3;
+}
+
+.date1 {
+  grid-area: date1;
+}
+
+.rad1 {
+  grid-area: rad1;
   justify-self: end;
+}
+
+.lab1 {
+  grid-area: lab1;
+  justify-self: start;
+}
+
+.rad2 {
+  grid-area: rad2;
+  justify-self: end;
+}
+
+.lab2 {
+  grid-area: lab2;
+  justify-self: start;
+}
+
+.rad3 {
+  grid-area: rad3;
+  justify-self: end;
+}
+
+.lab3 {
+  grid-area: lab3;
+  justify-self: start;
+}
+
+.rad4 {
+  grid-area: rad4;
+  justify-self: end;
+}
+
+.lab4 {
+  grid-area: lab4;
+  justify-self: start;
+}
+
+.textbar {
+  grid-area: textbar;
+}
+
+.date2 {
+  grid-area: date2;
+}
+
+.rad5 {
+  grid-area: rad5;
+  justify-self: end;
+}
+
+.lab5 {
+  grid-area: lab5;
+  justify-self: start;
+}
+
+.rad6 {
+  grid-area: rad6;
+  justify-self: end;
+}
+
+.lab6 {
+  grid-area: lab6;
+  justify-self: start;
+}
+
+.rad7 {
+  grid-area: rad7;
+  justify-self: end;
+}
+
+.lab7 {
+  grid-area: lab7;
+  justify-self: start;
+}
+
+.rad8 {
+  grid-area: rad8;
+  justify-self: end;
+}
+
+.lab8 {
+  grid-area: lab8;
+  justify-self: start;
+}
+
+.button {
   grid-area: button;
 }
 
-.gridLabel {
-  justify-self: start;
-  grid-area: label;
+.datebar {
+  max-width: 127.5px;
+}
+
+.flexCon {
+  display: flexbox;
+}
+
+a {
+  text-decoration: underline;
 }

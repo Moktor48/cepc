@@ -59,11 +59,12 @@ useEffect(() => {
                 junc={juncData}
                 />))}<br />
 
-            <p>Notes:</p>
+            <p>Contact Notes:</p>
             {noteData.map((data: any) => (    
             <NoteBox
                 key={data.id + "note"}
                 id={data.id}
+                enType="contact"
                 conID={id}
                 entry={data.entry_date}
                 note={data.note} 
@@ -109,3 +110,4 @@ useEffect(() => {
     </div>
   )
 }
+

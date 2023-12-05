@@ -68,8 +68,10 @@ export default function EnterCoalition() {
         }
     }
         return(
-            <form onSubmit={handleSubmit}>
+            <form className="container max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md" onSubmit={handleSubmit}>
+                <p className="header block text-center text-4xl">Coalition Entry</p><br />
                 <input 
+                    className="fn"
                     type="text"
                     required
                     placeholder='Coalition Name'
@@ -77,81 +79,108 @@ export default function EnterCoalition() {
                     name='name'
                     value={formData.name}
                 /><br />
+
+                <p className="title block text-center text-2xl">Coalition Priorities</p>
+
                 <input 
+                    className="rad1"
                     type="checkbox"
                     name="priority1"
                     checked={isChecked1}
                     onChange={handleClick}
                 />
-                <label htmlFor="priority1">Priority 1</label>
+                <label className="lab1" htmlFor="priority1">Priority 1</label>
                 <br />
+
                 <input 
+                    className="rad2"
                     type="checkbox"
                     name="priority2"
                     checked={isChecked2}
                     onChange={handleClick}
                 />
-                <label htmlFor="priority2">Priority 2</label>                
+                <label className="lab2" htmlFor="priority2">Priority 2</label>                
                 <br />
+
                 <input 
+                    className="rad3"
                     type="checkbox" 
                     name="priority3"
                     checked={isChecked3}
                     onChange={handleClick}
                 />
-                <label htmlFor="priority3">Priority 3</label>                
+                <label className="lab3" htmlFor="priority3">Priority 3</label>                
                 <br />
-                <label htmlFor="phaseEngage">Engage</label>
+
+                <p className="mt-4 title2 block m-auto text-center text-2xl">Coalition Phase</p>
+                
                 <input 
+                    className="rad5"
                     type="radio" 
                     id="phaseEngage" 
                     name="phase" 
                     value="Engage" 
                     onChange={handleChange}
                     checked={formData.phase === "Engage"}
-                /><br />
-                <label htmlFor="phasePlan">Plan</label>
+                />
+                <label className="lab5" htmlFor="phaseEngage">Engage</label><br />
+             
                 <input 
+                    className="rad6"
                     type="radio" 
                     id="phasePlan" 
                     name="phase" 
                     value="Plan" 
                     onChange={handleChange}
                     checked={formData.phase === "Plan"}
-                /><br />
-                <label htmlFor="phaseImplement">Implement</label>
+                />
+                <label className="lab6" htmlFor="phasePlan">Plan</label><br />
+                
                 <input 
+                    className="rad7"
                     type="radio" 
                     id="phaseImplement" 
                     name="phase" 
                     value="Implement" 
                     onChange={handleChange}
                     checked={formData.phase === "Implement"}
-                /><br />
-                <label htmlFor="phaseSustain">Sustain</label>
+                />
+                <label className="lab7" htmlFor="phaseImplement">Implement</label><br />
+                
                 <input 
+                    className="rad8"
                     type="radio" 
                     id="phaseSustain" 
                     name="phase" 
                     value="Sustain" 
                     onChange={handleChange}
                     checked={formData.phase === "Sustain"}
-                /><br />
+                />
+                <label className="lab8" htmlFor="phaseSustain">Sustain</label><br />
+
+                <p className="mt-4 tx1 block m-auto text-center text-2xl">Last Contact Date</p> 
+
                 <input 
+                    className="date text-black mt-4"
                     type="date" 
                     id="lastConDate" 
                     name="last_contact" 
                     onChange={handleChange}
                     value={formData.last_contact}
                 /><br />
+
+                <p className="mt-4 tx2 block m-auto text-center text-2xl">Next Contact Date</p>
+
                 <input 
+                    className="date3 text-black mt-4"
                     type="date" 
                     id="nextConDate" 
                     name="next_contact" 
                     onChange={handleChange}
                     value={formData.next_contact}
                 /><br />
-                <button disabled={isLoading}>
+
+                <button className="button justify-self-center mt-4" disabled={isLoading}>
                 {isLoading && <span className="text-red">Submitting...</span>}
                 {!isLoading && <span className="text-black bg-yellow-200">Submit Coalition</span>}
                 </button>

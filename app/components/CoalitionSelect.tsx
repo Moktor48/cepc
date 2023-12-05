@@ -55,7 +55,7 @@ async function handleSubmit(e: any) {
     }
 }
     return(
-        <form onSubmit={handleSubmit}>
+        <form className="flexCon flex_col" onSubmit={handleSubmit}>
             <select value={value} onChange={handleChange}>
             {coalData.map((data: any) => (
                 <SelOpt                 

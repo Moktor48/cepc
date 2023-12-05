@@ -5,7 +5,9 @@ const prisma = new PrismaClient
 
 function CoalitionData({id, Coalition}) {
     return(
+        <div className="flex flexCon justify-center">
             <h2><Link href={`/coalition/${id}`}>{Coalition}</Link></h2>
+        </div>
     )
 }
 

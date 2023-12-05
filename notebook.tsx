@@ -186,7 +186,18 @@ const randomID = "contact" + Math.floor(Math.random() * 1000000000).toString()
 
 DATES:
 
+MODALS
+@modals/parallel routes
+modal pop-ups for data entry
 
-
+const vanilla = () => {
+if(problem){
+    const yo = !problem
+    for (let i = problem.count; i = yo, i--) {
+        problem ? yo | solvedIt;
+    }
+    console.log("I solved it")
+}
+}
 */
 

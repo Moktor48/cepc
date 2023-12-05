@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 function ContactTable({ID, FirstName, LastName, Org}) {
     return(   
         <tr key={ID.toString()}>
-            <td><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
-            <td>{Org}</td>
+            <td className=""><Link href={`/person/${ID}`}>{FirstName + " " + LastName}</Link></td>
+            <td className="">{Org}</td>
 
         </tr>
     )
@@ -28,7 +28,7 @@ export default function ContactDue() {
       if (!cont) return <p>No data</p>
 
       return(
-        <div>
+        <div className="flex flexCon justify-center">
             <table>
                 <thead>
                     <tr>

@@ -43,8 +43,10 @@ export default function AddNote({id, isLoading, onSub}) {
 
 
         return(
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
+                <p className="header block m-auto text-center text-4xl">Add Notes</p>
                 <input 
+                    className="date datebar mt-4"
                     type="date"
                     required
                     id="entryDate" 
@@ -53,6 +55,7 @@ export default function AddNote({id, isLoading, onSub}) {
                     value={formNote.entry_date}
                 /><br />
                 <input 
+                    className="textbar mt-4 w-1/2"
                     type="textarea"
                     required
                     placeholder='Add Notes Here'
@@ -60,9 +63,8 @@ export default function AddNote({id, isLoading, onSub}) {
                     name='note'
                     value={formNote.note}
                 /><br />
-                <button disabled={isLoading}>
-                {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Notes</span>}
+                <button className="button justify-self-center mt-4" disabled={isLoading}>
+                Submit Notes
                 </button>
             </form>
         )

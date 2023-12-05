@@ -53,59 +53,63 @@ export default function ModContact({id, isLoading, onSub}) {
     }
         return(
 
-            <form className="block m-auto text-center" onSubmit={handleSubmit}>
-                <p className="block m-auto text-center">Contact Changes</p>
-                <p className="block m-auto text-center">Last Contact Date</p>
+        <form className="container max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md" onSubmit={handleSubmit}>
+            
+            <p className="header block m-auto text-center text-4xl">Contact Changes</p><br />
+            <p className="mt-4 title block m-auto text-center text-2xl">Last Contact Date</p>
                 <input 
+                    className="date1 text-black"
                     type="date" 
                     id="lastConDate" 
                     name="last_contact" 
                     onChange={handleChange}
                     value={formData.last_contact}
                 /><br />
-                <div className="radioContainer">
+
                 <input 
-                    className="gridButton"
+                    className="rad1"
                     type="radio" 
                     id="lastConTypePer" 
                     name="last_con_type" 
                     value="In-Person" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "In-Person"}
-                /><label className="gridLabel" htmlFor="lastConTypePer">In-Person</label><br />
+                /><label className="lab1" htmlFor="lastConTypePer">In-Person</label><br />
 
                 <input 
-                    className="gridButton"
+                    className="rad2"
                     type="radio" 
                     id="lastConTypeEm" 
                     name="last_con_type" 
                     value="E-Mail" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "E-Mail"}
-                /><label  className="gridLabel" htmlFor="lastConTypeEm">E-Mail</label><br />
+                /><label className="lab2" htmlFor="lastConTypeEm">E-Mail</label><br />
                 
                 <input
-                    className="gridButton" 
+                    className="rad3" 
                     type="radio" 
                     id="lastConTypePh" 
                     name="last_con_type" 
                     value="Phone" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "Phone"}
-                /><label  className="gridLabel" htmlFor="lastConTypePh">Phone</label><br />
+                /><label className="lab3" htmlFor="lastConTypePh">Phone</label><br />
                 
                 <input 
-                    className="gridButton"                
+                    className="rad4"                
                     type="radio" 
                     id="lastConTypeVM" 
                     name="last_con_type" 
                     value="Virtual Meeting" 
                     onChange={handleChange}
                     checked={formData.last_con_type === "Virtual Meeting"}
-                /><label  className="gridLabel" htmlFor="lastConTypeVM">Virtual Meeting</label><br />
-                </div>
-                <p className="block m-auto text-center">Next Contact Date</p>
+                /><label className="lab4" htmlFor="lastConTypeVM">Virtual Meeting</label><br />
+
+                <p className="mt-4 title2 block m-auto text-center text-2xl">Next Contact Date</p>
+                
                 <input 
+                    className="date2 text-black"
                     type="date" 
                     id="nextConDate" 
                     name="next_contact" 
@@ -114,45 +118,53 @@ export default function ModContact({id, isLoading, onSub}) {
                 /><br />
                 
                 <input 
+                    className="rad5" 
                     type="radio" 
                     id="nextConTypePer" 
                     name="next_con_type" 
                     value="In-Person" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "In-Person"}
-                /><label htmlFor="nextConTypePer">In-Person</label><br />
+                /><label className="lab5" htmlFor="nextConTypePer">In-Person</label><br />
                 
-                <input 
+                <input
+                    className="rad6"  
                     type="radio" 
                     id="nextConTypeEm" 
                     name="next_con_type" 
                     value="E-Mail" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "E-Mail"}
-                /><label htmlFor="nextConTypeEm">E-Mail</label><br />
+                /><label className="lab6" htmlFor="nextConTypeEm">E-Mail</label><br />
                 
                 <input 
+                    className="rad7" 
                     type="radio" 
                     id="nextConTypePh" 
                     name="next_con_type" 
                     value="Phone" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "Phone"}
-                /><label htmlFor="nextConTypePh">Phone</label><br />
+                /><label className="lab7" htmlFor="nextConTypePh">Phone</label><br />
                 
                 <input 
+                    className="rad8" 
                     type="radio" 
                     id="nextConTypeVM" 
                     name="next_con_type" 
                     value="Virtual Meeting" 
                     onChange={handleChange}
                     checked={formData.next_con_type === "Virtual Meeting"}
-                /><label htmlFor="nextConTypeVM">Virtual Meeting</label><br />
-                <button disabled={isLoading}>
-                {isLoading && <span className="text-red bg-black">Submitting...</span>}
-                {!isLoading && <span className="text-black bg-yellow-200">Update Contact</span>}
+                /><label className="lab8" htmlFor="nextConTypeVM">Virtual Meeting</label><br />
+
+
+
+                <button className="button justify-self-center mt-4" disabled={isLoading}>
+                {isLoading && <span>Submitting...</span>}
+                {!isLoading && <span>Update Contact</span>}
                 </button>
-            </form>
+
+        </form>
         )
         }
 

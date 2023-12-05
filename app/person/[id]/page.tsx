@@ -47,7 +47,7 @@ return(
             noteData={noteData}
             juncData={juncData}
         />
-        <button><Link href={"../.."}>Go back!</Link></button>
+
     </div>
 
 )}

@@ -31,8 +31,10 @@ export default function AddEmail({id, isLoading, onSub}) {
     } catch (error){console.error(error)}
     }
         return(
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
+                <p className="header block m-auto text-center text-4xl">Add Email</p>
                 <input 
+                    className="textbar mt-4 w-1/2"
                     type="email"
                     required
                     placeholder='Email Address'
@@ -40,9 +42,8 @@ export default function AddEmail({id, isLoading, onSub}) {
                     name='email'
                     value={formEmail.email}
                 /><br />
-                <button disabled={isLoading}>
-                {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Submit Email</span>}
+                <button className="button justify-self-center mt-4" disabled={isLoading}>
+                Submit Email
                 </button>
             </form>
         )

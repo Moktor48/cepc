@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation"
 import { useRef, useEffect } from "react"
 
 type Props = {
-    title: string,
+    //title: string,
     onClose: () => void,
     onOk: () => void,
     children: React.ReactNode,
@@ -11,7 +11,7 @@ type Props = {
 
 import React from 'react'
 
-export default function Dialog({title, onClose, onOk, children}: Props) {
+export default function Dialog({/*title,*/ onClose, onOk, children}: Props) {
 
   const searchParams = useSearchParams()
   const dialogRef = useRef<null | HTMLDialogElement>(null)
@@ -40,20 +40,20 @@ export default function Dialog({title, onClose, onOk, children}: Props) {
     <dialog ref={dialogRef} className="backdrop:bg-gray-800/50">
       <div>
         <div>
-          <h1>{title}</h1>
+          {/*<h1>{title}</h1>*/}
           <button 
           onClick={closeDialog}
-          >x</button>
+          >X</button>
         </div>
         <div>
           {children}
-          <div>
+          {/*<div>
             <button 
             onClick={clickOk}
             >
               OK
             </button>
-          </div>
+          </div>*/}
         </div>
       </div>
 

@@ -54,10 +54,10 @@ const overDueA = await overDue()
 const warnDue = await soonDue()
 
   return (
-    <div>
-            <table>
+    <div className="grid-flow-col cont3 justify-center">
+            <table className="tab1">
                 <thead>
-                    <tr><th colSpan={2}>Priority Contacts!</th></tr>
+                    <tr><th className="text-2xl text-red-500" colSpan={2}>Priority Contacts!</th></tr>
                     <tr>
                         <th>Name</th>
                         <th>Next Contact</th>
@@ -75,9 +75,10 @@ const warnDue = await soonDue()
                 )}
            </tbody>
             </table>
-            <table>
+            <br /><br />
+            <table className="tab2 mb-8">
                 <thead>
-                    <tr><th colSpan={2}>Due in the next week</th></tr>
+                    <tr><th className="text-2xl text-green-500" colSpan={2}>Due in the next week</th></tr>
                     <tr>
                         <th>Name</th>
                         <th>Next Contact</th>

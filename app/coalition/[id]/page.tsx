@@ -39,15 +39,15 @@ export default async function Page( { params }: {params: { id: string } }) {
         <>
 
             <CoalData
-                key={coalitionData.id}
-                ID={coalitionData.id}
-                Coalition = {coalitionData.name}
-                NexCon={coalitionData.next_contact}
-                LasCon={coalitionData.last_contact}
-                P1={coalitionData.priority1}
-                P2={coalitionData.priority2}
-                P3={coalitionData.priority3}
-                Phase={coalitionData.phase}
+                key={coalitionData?.id}
+                ID={coalitionData?.id}
+                Coalition = {coalitionData?.name}
+                NexCon={coalitionData?.next_contact}
+                LasCon={coalitionData?.last_contact}
+                P1={coalitionData?.priority1}
+                P2={coalitionData?.priority2}
+                P3={coalitionData?.priority3}
+                Phase={coalitionData?.phase}
             /><br />
 
             <p>Members:</p>
@@ -62,9 +62,12 @@ export default async function Page( { params }: {params: { id: string } }) {
                 coalition_id={params.id}
             /><br />
             <p>Coalition notes:</p>
-            {noteData.map((data: any) => (
+            {noteData?.map((data: any) => (
             <NoteBox
                 key={data.id}
+                id={data.id}
+                enType="coalition"
+                conID={id}
                 entry={data.entry_date}
                 note={data.note}
             />))}<br />

@@ -11,7 +11,7 @@ export async function GET(
     const id = params.id
     const contact = await prisma.coal_note.findUnique({
         where: {
-            id: parseInt(id, 10)
+            id: id
         }
     })
     return NextResponse.json(contact)
@@ -25,7 +25,7 @@ export async function PUT(
     const json = await request.json()
     const updated = await prisma.coal_note.update({
         where: {
-            id: parseInt(id, 10)
+            id: id
         },
         data: json
     })
@@ -40,7 +40,7 @@ export async function PATCH(
     const json = await request.json()
     const updated = await prisma.coal_note.update({
     where: {
-        id: parseInt(id, 10)
+        id: id
     },
     data: json
     })
@@ -50,12 +50,12 @@ export async function PATCH(
 
 export async function DELETE(
     request: Request,
-    { params }: { params: {id: string } }
+    { params }: { params: {note: string } }
   ) {
-    const id = params.id
+    const id = params.note
     const deleted = await prisma.coal_note.delete({
     where: {
-        id: parseInt(id, 10)
+        id: id
     }
     })
 
