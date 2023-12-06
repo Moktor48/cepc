@@ -1,18 +1,17 @@
 "use client"
 import { useSearchParams } from "next/navigation"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
+import React from 'react'
 
 type Props = {
-    //title: string,
     onClose: () => void,
-    onOk: () => void,
     children: React.ReactNode,
 }
 
-import React from 'react'
 
-export default function Dialog({/*title,*/ onClose, onOk, children}: Props) {
 
+export default function Dialog({onClose, children}: Props) {
+  const [shareState, setShareState] = useState(false)
   const searchParams = useSearchParams()
   const dialogRef = useRef<null | HTMLDialogElement>(null)
   const showDialog = searchParams.get('showDialog')
@@ -30,30 +29,17 @@ export default function Dialog({/*title,*/ onClose, onOk, children}: Props) {
     onClose()
   }
 
-  const clickOk = () => {
-    onOk()
-    closeDialog()
-  }
-
   const dialog: JSX.Element | null = showDialog === 'y'
   ? (
     <dialog ref={dialogRef} className="backdrop:bg-gray-800/50">
       <div>
         <div>
-          {/*<h1>{title}</h1>*/}
           <button 
           onClick={closeDialog}
           >X</button>
         </div>
         <div>
           {children}
-          {/*<div>
-            <button 
-            onClick={clickOk}
-            >
-              OK
-            </button>
-          </div>*/}
         </div>
       </div>
 

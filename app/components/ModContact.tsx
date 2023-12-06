@@ -161,7 +161,7 @@ export default function ModContact({id, isLoading, onSub}) {
 
                 <button className="button justify-self-center mt-4" disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}
-                {!isLoading && <span>Update Contact</span>}
+                {!isLoading && <span className="text-black">Update Contact</span>}
                 </button>
 
         </form>

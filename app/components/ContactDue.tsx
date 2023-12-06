@@ -12,7 +12,7 @@ function ContactTable({ID, FirstName, LastName, Org}) {
     )
 }
 
-export default function ContactDue() {
+export default function ContactDue(shareState) {
     const [cont, setCont] = useState([])
     const [isLoading, setLoading] = useState(true)
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function ContactDue() {
             setCont(data)
             setLoading(false)
         })
-      }, []);
+      }, [shareState]);
 
       if (isLoading) return <p>Loading...</p>
       if (!cont) return <p>No data</p>
@@ -51,3 +51,4 @@ export default function ContactDue() {
         </div>
       )
     }
+    

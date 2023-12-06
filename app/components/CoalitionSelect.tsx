@@ -55,15 +55,15 @@ async function handleSubmit(e: any) {
     }
 }
     return(
-        <form className="flexCon flex_col" onSubmit={handleSubmit}>
-            <select value={value} onChange={handleChange}>
+        <form className="flexCon flex_col text-yellow-500" onSubmit={handleSubmit}>
+            <select className="text-yellow-500 bg-black" value={value} onChange={handleChange}>
             {coalData.map((data: any) => (
                 <SelOpt                 
                 key={data.id}
                 clid={data.id}
                 name={data.name}
                 />))}
-                <option disabled value='choose' id="89769876">Choose...</option>
+                <option className="text-yellow-500" disabled value='choose' id="89769876">Choose...</option>
             </select>
             <button type="submit" disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}

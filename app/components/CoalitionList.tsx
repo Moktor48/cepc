@@ -1,6 +1,6 @@
+"use client"
 import Link from "next/link"
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient
+import { useState, useEffect } from "react"
 
 
 function CoalitionData({id, Coalition}) {
@@ -11,8 +11,20 @@ function CoalitionData({id, Coalition}) {
     )
 }
 
-export default async function CoalitionTable() {
-    const cont = await prisma.coalition.findMany()
+export default function CoalitionTable(shareState) {
+    const [cont, setCont] = useState([])
+    const [isLoading, setLoading] = useState(true)
+    useEffect(() => {
+        fetch("/api/coalition")
+        .then((res) => res.json())
+        .then((data) => {
+            setCont(data)
+            setLoading(false)
+        })
+      }, [shareState]);
+
+      if (isLoading) return <p>Loading...</p>
+      if (!cont) return <p>No data</p>
 
       return(
         <div>

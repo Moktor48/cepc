@@ -199,5 +199,14 @@ if(problem){
     console.log("I solved it")
 }
 }
+
+What I WANT to do:
+Submit information in one component
+    Client side component, using a form and submit
+Update information on the same page, different component
+    Client side component, useEffect to fetch data
+Parent page
+    Server side page
+
 */
 
