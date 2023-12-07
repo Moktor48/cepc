@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function AddNote({id, isLoading, onSub}) {
+export default function AddNote({id}) {
+    const router = useRouter()
     const [formNote, setFormNote] = useState(
         {
             id: "",
@@ -9,6 +11,7 @@ export default function AddNote({id, isLoading, onSub}) {
             entry_date: ""
         }
     )
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleChange = (e: any) => {
         setFormNote(prevFormNote => {
@@ -17,30 +20,29 @@ export default function AddNote({id, isLoading, onSub}) {
                 [e.target.name]: e.target.value
             }
         })
-    }    
+    } 
+
     async function handleSubmit(e: any) {
         e.preventDefault();
-
-        const response = {Attempt: "No response"}
         const randomID = "contnote" + Math.floor(Math.random() * 1000000000).toString()
         formNote.id = randomID
         const nextDateIso = new Date(formNote.entry_date).toISOString();
         formNote.entry_date = nextDateIso
 
-          fetch(`/api/contact/${id}/note`, {
+        const response = await fetch(`/api/contact/${id}/note`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(formNote),
           })
-
+        if (response.ok) {
         setFormNote({
             id: "",
             note: "",
             entry_date: ""
         })
-
+        router.refresh()
+        }
     }
-
 
         return(
             <form onSubmit={handleSubmit} className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
@@ -64,7 +66,8 @@ export default function AddNote({id, isLoading, onSub}) {
                     value={formNote.note}
                 /><br />
                 <button className="button justify-self-center mt-4" disabled={isLoading}>
-                Submit Notes
+                {isLoading && <span>Submitting...</span>}
+                {!isLoading && <span className="text-black">Submit Notes</span>}
                 </button>
             </form>
         )

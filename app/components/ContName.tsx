@@ -1,5 +1,8 @@
-export default function ContName({fname, lname}) {
+import Link from "next/link"
+export default function ContName({id, fname, lname}) {
   return (
-    <p>{fname} {lname}</p>
+    <div>
+    <Link href={`/person/${id}`}><p>{fname} {lname}</p></Link>
+    </div>
   )
 }

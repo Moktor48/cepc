@@ -1,13 +1,15 @@
 "use client"
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AddEmail({id, isLoading, onSub}) {
+
+    const router = useRouter()
     const [formEmail, setFormEmail] = useState(
         {
             email: ""
         }
     )
-
 
     const handleChange = (e: any) => {
         setFormEmail(prevFormEmail => {
@@ -16,19 +18,19 @@ export default function AddEmail({id, isLoading, onSub}) {
                 [e.target.name]: e.target.value
             }
         })
-    }    
+    }
+    
     async function handleSubmit(e: any) {
         e.preventDefault();
-
-        try{
-          fetch(`/api/contact/${id}/email`, {
+        const response = await fetch(`/api/contact/${id}/email`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(formEmail),
-          });
+          })
+        if (response.ok) {
         setFormEmail({email: ""})
-
-    } catch (error){console.error(error)}
+        router.refresh()
+        }
     }
         return(
             <form onSubmit={handleSubmit} className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">

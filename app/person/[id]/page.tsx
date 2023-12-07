@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 import ClientState from "@/app/components/ClientState";
 

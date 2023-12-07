@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function AddPhone({id, isLoading, onSub}) {
-    const [formPhone, setFormPhone] = React.useState(
+    const router = useRouter()
+    const [formPhone, setFormPhone] = useState(
         {
             phone: ""
         }
@@ -19,15 +21,15 @@ export default function AddPhone({id, isLoading, onSub}) {
     async function handleSubmit(e: any) {
         e.preventDefault();
 
-        try{
-          fetch(`/api/contact/${id}/phone`, {
+        const response = await fetch(`/api/contact/${id}/phone`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(formPhone),
           })
+        if (response.ok){
         setFormPhone({phone: ""})
-
-    } catch (error){console.error(error)}
+        router.refresh()
+    }
     }
         return(
             <form onSubmit={handleSubmit}  className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">

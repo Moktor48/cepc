@@ -33,8 +33,6 @@ export default async function Page( { params }: {params: { id: string } }) {
         contactData.push(mergeCoal[0])
         }}
 
-
-
     return(
         <>
 
@@ -51,16 +49,17 @@ export default async function Page( { params }: {params: { id: string } }) {
             /><br />
 
             <p>Members:</p>
-            {contactData.map((data: any) => (            
+            <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md"> 
+            {contactData.map((data: any) => (     
+      
             <ContName
                 key={data.id}
+                id={data.id}
                 fname={data.first_name} 
                 lname={data.last_name}
-            />))}<br />
-            <p>Add Coalition Notes:</p>
-            <AddCoalNote
-                coalition_id={params.id}
-            /><br />
+            />
+            ))}
+            </div><br />
             <p>Coalition notes:</p>
             {noteData?.map((data: any) => (
             <NoteBox
@@ -71,6 +70,11 @@ export default async function Page( { params }: {params: { id: string } }) {
                 entry={data.entry_date}
                 note={data.note}
             />))}<br />
+            <p>Add Coalition Notes:</p>
+            <AddCoalNote
+                coalition_id={params.id}
+            /><br />
+
             <DeleteCoalition 
                 key={id}
                 idx={id}

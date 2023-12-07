@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-
+import { useRouter } from 'next/navigation'
 type formData = {
     last_contact: string | undefined,
     last_con_type: string | undefined,
@@ -9,6 +9,7 @@ type formData = {
 }
 
 export default function ModContact({id, isLoading, onSub}) {
+    const router = useRouter()
     const [formData, setFormData] = useState<formData>(
         {last_contact: undefined, last_con_type: undefined, next_contact: undefined, next_con_type: undefined}
     )
@@ -36,20 +37,18 @@ export default function ModContact({id, isLoading, onSub}) {
         const nextDateIso = new Date(formData.next_contact).toISOString();
         formData.next_contact = nextDateIso}
         console.log(formData)
-        try {
-          fetch(`/api/contact/${id}`, {
+
+        const response = await fetch(`/api/contact/${id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
           })
+          if (response.ok){
           setFormData({last_contact: undefined, last_con_type: undefined, next_contact: undefined, next_con_type: undefined})
-
-
-        } catch (error){
-            console.error(error)
-        }
+          router.refresh()
+        } 
     }
         return(
 

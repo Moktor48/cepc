@@ -13,7 +13,7 @@ export default function PhoneData({id, phone}) {
   }
 
   return (
-    <div className="bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
+    <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
         <span>{phone}  <button onClick={handleClick} className="text-red-600">X</button></span>
     </div>
   )
