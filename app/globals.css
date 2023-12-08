@@ -117,8 +117,16 @@ button:disabled {
   ". rad8 lab8 ."
   "tx1 tx1 tx1 tx1"
   ". date date ."
+  ". rad11 lab11 ."
+  ". rad12 lab12 ."
+  ". rad13 lab13 ."
+  ". rad14 lab14 ."
   "tx2 tx2 tx2 tx2"
   ". date3 date3 ."
+  ". rad15 lab15 ."
+  ". rad16 lab16 ."
+  ". rad17 lab17 ."
+  ". rad18 lab18 ."
   "button button button button"
 }
 .cont2 {
@@ -140,6 +148,41 @@ button:disabled {
   ". tab1 ."
   ". text2 ."
   ". tab2 ."
+}
+
+.button-clear {
+  background-color: transparent;
+  border-width: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  padding: 0;
+}
+
+.cont4{
+  display: grid;
+  grid-template-columns: auto 20px 150px auto;
+  grid-template-areas:
+  "header header header header"
+  "title title title title"
+  ". date1 date1 ."
+  ". rad1 lab1 ."
+  ". rad2 lab2 ."
+  ". rad3 lab3 ."
+  ". rad4 lab4 ."
+  "title2 title2 title2 title2 "
+  ". date2 date2 ."
+  ". rad5 lab5 ."
+  ". rad6 lab6 ."
+  ". rad7 lab7 ."
+  ". rad8 lab8 ."
+  "tx1 tx1 tx1 tx1"
+  ". date date ."
+  "tx2 tx2 tx2 tx2"
+  ". date3 date3 ."
+  "button button button button"
 }
 
 text1 {
@@ -307,4 +350,77 @@ tab2 {
 
 a {
   text-decoration: underline;
+}
+
+.rad11 {
+  grid-area: rad11;
+  justify-self: end;
+}
+
+.lab11 {
+  grid-area: lab11;
+  justify-self: start;
+
+}.rad12 {
+  grid-area: rad12;
+  justify-self: end;
+}
+
+.lab12 {
+  grid-area: lab12;
+  justify-self: start;
+
+}.rad13 {
+  grid-area: rad13;
+  justify-self: end;
+}
+
+.lab13 {
+  grid-area: lab13;
+  justify-self: start;
+
+}.rad14 {
+  grid-area: rad14;
+  justify-self: end;
+}
+
+.lab14 {
+  grid-area: lab14;
+  justify-self: start;
+
+}.rad15 {
+  grid-area: rad15;
+  justify-self: end;
+}
+
+.lab15 {
+  grid-area: lab15;
+  justify-self: start;
+
+}.rad16 {
+  grid-area: rad16;
+  justify-self: end;
+}
+
+.lab16 {
+  grid-area: lab16;
+  justify-self: start;
+
+}.rad17 {
+  grid-area: rad17;
+  justify-self: end;
+}
+
+.lab17 {
+  grid-area: lab17;
+  justify-self: start;
+
+}.rad18 {
+  grid-area: rad18;
+  justify-self: end;
+}
+
+.lab18 {
+  grid-area: lab18;
+  justify-self: start;
 }

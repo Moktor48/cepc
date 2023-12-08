@@ -4,6 +4,7 @@ import AddCoalNote from "../../components/AddCoalNote";
 import { PrismaClient } from "@prisma/client";
 import DeleteCoalition from "@/app/components/DeleteCoalition";
 import ContName from "@/app/components/ContName";
+import ModCoalition from "@/app/components/ModCoalition";
 const prisma = new PrismaClient()
 
 export default async function Page( { params }: {params: { id: string } }) {
@@ -19,10 +20,9 @@ export default async function Page( { params }: {params: { id: string } }) {
             coal_note: true
         }
     })
-
     const noteData = coalitionData?.coal_note
     const juncData = coalitionData?.junction
-    console.log(juncData)
+
     if(juncData){
         for (let i = 0; i < juncData.length; i++){
         let mergeCoal = await prisma.contact.findMany({
@@ -35,7 +35,6 @@ export default async function Page( { params }: {params: { id: string } }) {
 
     return(
         <>
-
             <CoalData
                 key={coalitionData?.id}
                 ID={coalitionData?.id}
@@ -46,17 +45,20 @@ export default async function Page( { params }: {params: { id: string } }) {
                 P2={coalitionData?.priority2}
                 P3={coalitionData?.priority3}
                 Phase={coalitionData?.phase}
+                LCT={coalitionData?.last_con_type}
+                NCT={coalitionData?.next_con_type}
             /><br />
 
             <p>Members:</p>
             <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md"> 
             {contactData.map((data: any) => (     
-      
             <ContName
                 key={data.id}
                 id={data.id}
                 fname={data.first_name} 
                 lname={data.last_name}
+                junc={juncData}
+                coalition_id={id}
             />
             ))}
             </div><br />
@@ -74,7 +76,12 @@ export default async function Page( { params }: {params: { id: string } }) {
             <AddCoalNote
                 coalition_id={params.id}
             /><br />
-
+            <p>Modify Coalition:</p>
+            <ModCoalition
+                key={id + "modCoal"}
+                coalitionData={coalitionData}
+                contactData={contactData}
+            /><br />
             <DeleteCoalition 
                 key={id}
                 idx={id}

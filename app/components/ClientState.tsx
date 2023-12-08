@@ -34,30 +34,33 @@ useEffect(() => {
                 /><br />
 
             <p>Phone Numbers:</p>
+            <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
             {phoneData.map((data: any) => (  
             <PhoneData
                 key={data.phone}
                 id={id}
                 phone={data.phone} 
-                />))}<br />
+                />))}</div><br />
 
             <p>Email Addresses:</p>
+            <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
             {emailData.map((data: any) => (      
             <EmailData
                 key={data.email}
                 id={id}
                 email={data.email} 
-                />))}<br />
+                />))}</div><br />
 
-            <p>Coalitions</p>
+            <p>Coalitions:</p>
+            <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
             {coalitionData.map((data: any) => (
             <CoalitionData
                 key={data.id + "coal"}
-                ID={data.id}
+                coalition_id={data.id}
                 Coalition={data.name}
-                conID={id}
+                contact_id={id}
                 junc={juncData}
-                />))}<br />
+                />))}</div><br />
 
             <p>Contact Notes:</p>
             {noteData.map((data: any) => (    

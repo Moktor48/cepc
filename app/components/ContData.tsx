@@ -26,33 +26,11 @@ export default function ContData({id, fname, lname, org, lcont, ncont, ltype, nt
 
 
     return(
-        <div className="space-x-4">
-            <h1 className="font-bold text-xl underline inline-block">{fname} {lname}</h1><span onClick={saveChange}className="inline-block text-red-600 text-xs">Edit</span>
+        <div className="space-x-4 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
+            <h1 className="font-bold text-4xl text-center underline">{fname} {lname}</h1><br />
             <p className="">Organization: {org}</p>
             <p>The last contact occured on {Las} by {ltype}</p>
             <p>The next contact is scheduled for {Nex} by {ntype}</p>
         </div>
     )
 }
-
-/*
-Link the edit to change the state to make the text changable, on submit it will PATCH and return to normal state. 
-
-normState:  Person Name
-            Org: Org
-
-modState:   Changable Text with box filled in with current name
-            ""                  box filled in with Org
-
-Submit => PATCH update to update with edits
-            refresh back to normState
-
-    async function handleChange(e: any) { 
-        setNormState(prevNormState => {
-            return {
-                ...prevNormState,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
-*/

@@ -15,7 +15,9 @@ model coalition {
   priority3    Boolean   @default(false)
   phase        String?   @db.VarChar(255)
   last_contact DateTime? @db.Date
+  last_con_type String?   @db.VarChar(255)
   next_contact DateTime? @db.Date
+  next_con_type String?   @db.VarChar(255)
   junction     junction[]
   coal_note   coal_note[]
 }

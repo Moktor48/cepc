@@ -12,9 +12,6 @@ export default function EmailData({id, email}) {
     }
   }
   return (
-
-    <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
-        <span>{email}  <button onClick={handleClick} className="text-red-600">X</button></span>
-    </div>
+        <span className="block">{email}  <button onClick={handleClick} className="button-clear text-red-600">X</button></span>
   )
 }

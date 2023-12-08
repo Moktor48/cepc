@@ -1,12 +1,13 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CoalitionSelect({id}){
 const [isLoading, setIsLoading] = useState(false)
 const [formData, setFormData] = useState({id: "", contact_id: "", coalition_id: ""})
 const [coalData, setCoalData] = useState([])
 const [value, setValue] = useState("choose")
-
+const router = useRouter()
 const contID = id
 const randomID = "junc" + Math.floor(Math.random() * 1000000000).toString()
 useEffect(() => {
@@ -41,18 +42,19 @@ async function handleSubmit(e: any) {
     e.preventDefault();
     setIsLoading(true)
     console.log(formData)
-    try {
-      fetch('/api/junction', {
+
+    const response = await fetch('/api/junction', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       })
+      if (response.ok) {
       setFormData({id: "", contact_id: "", coalition_id: ""})
       setIsLoading(false)
-    } catch (error){console.error(error)
-    }
+      router.refresh()
+    } 
 }
     return(
         <form className="flexCon flex_col text-yellow-500" onSubmit={handleSubmit}>
@@ -65,7 +67,7 @@ async function handleSubmit(e: any) {
                 />))}
                 <option className="text-yellow-500" disabled value='choose' id="89769876">Choose...</option>
             </select>
-            <button type="submit" disabled={isLoading}>
+            <button className="button" type="submit" disabled={isLoading}>
                 {isLoading && <span>Submitting...</span>}
                 {!isLoading && <span>Add Coalition</span>}
             </button>

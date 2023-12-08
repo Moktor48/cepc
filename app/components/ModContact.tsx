@@ -52,12 +52,12 @@ export default function ModContact({id, isLoading, onSub}) {
     }
         return(
 
-        <form className="container max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md" onSubmit={handleSubmit}>
+        <form className="cont4 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md" onSubmit={handleSubmit}>
             
-            <p className="header block m-auto text-center text-4xl">Contact Changes</p><br />
-            <p className="mt-4 title block m-auto text-center text-2xl">Last Contact Date</p>
+            <p className="header block text-center text-4xl">Contact Changes</p>
+            <p className="title mt-4 block text-center text-2xl">Last Contact Date</p>
                 <input 
-                    className="date1 text-black"
+                    className="date1 text-black min-w-min"
                     type="date" 
                     id="lastConDate" 
                     name="last_contact" 
@@ -108,7 +108,7 @@ export default function ModContact({id, isLoading, onSub}) {
                 <p className="mt-4 title2 block m-auto text-center text-2xl">Next Contact Date</p>
                 
                 <input 
-                    className="date2 text-black"
+                    className="date2 text-black min-w-min"
                     type="date" 
                     id="nextConDate" 
                     name="next_contact" 

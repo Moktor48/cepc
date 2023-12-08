@@ -48,7 +48,7 @@ export default function AddNote({id}) {
             <form onSubmit={handleSubmit} className="cont2 max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
                 <p className="header block m-auto text-center text-4xl">Add Notes</p>
                 <input 
-                    className="date datebar mt-4"
+                    className="date datebar mt-4 min-w-min"
                     type="date"
                     required
                     id="entryDate" 

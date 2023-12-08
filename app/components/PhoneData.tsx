@@ -1,20 +1,19 @@
 "use client"
-import React from 'react'
+import { useRouter } from "next/navigation"
 
 export default function PhoneData({id, phone}) {
-  function handleClick() {
-    try {
-      fetch(`/api/contact/${[id]}/phone/${[phone]}`, {
+  const router = useRouter()
+  async function handleClick() {
+
+  const response = await fetch(`/api/contact/${[id]}/phone/${[phone]}`, {
         method: 'DELETE',
       })
-    } finally {
-  
-    }
-  }
+      if (response.ok){
+        router.refresh()
+      }
+    } 
 
   return (
-    <div className="max-w-3xl bg-slate-900 border-solid border-2 border-slate-400 rounded-md">
-        <span>{phone}  <button onClick={handleClick} className="text-red-600">X</button></span>
-    </div>
+        <span className="block">{phone}  <button onClick={handleClick} className="button-clear text-red-600">X</button></span>
   )
 }
