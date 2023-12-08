@@ -1,15 +1,17 @@
 "use client"
+import { useRouter } from "next/navigation"
 export default function DeleteContact({idx}){
-        const id = idx
-        async function handleDelete(e: any){
-        e.preventDefault()
-                    try {
-                      fetch(`/api/contact/${id}`, 
-                      {method: 'DELETE',}
-                      )} 
-                      catch (error){console.error(error)
-                      }
+  const router = useRouter()
+  const id = idx
+  async function handleDelete(e: any){
+    e.preventDefault()
+    const response = await fetch(`/api/contact/${id}`, 
+      {method: 'DELETE',}
+      ) 
+    if (response.ok) {
+      router.push("/person")
     }
+  }
   return (
     <div>
         <button onClick={handleDelete}>

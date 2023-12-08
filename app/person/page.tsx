@@ -4,13 +4,14 @@ import ContactDue from '../components/ContactDue'
 import EnterContact from '../components/EnterContact'
 import Link from 'next/link'
 import { useState } from 'react'
-
+import { useRouter } from "next/navigation"
 export default function AllContacts() {
-  
+  const router = useRouter()
   const [shareState, setShareState] = useState(false)
 
   function onClose() {
     setShareState(!shareState)
+    router.push("/person")
   }
 
   return (

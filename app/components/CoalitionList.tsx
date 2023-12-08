@@ -2,7 +2,6 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 
-
 function CoalitionData({id, Coalition}) {
     return(
         <div className="flex flexCon justify-center">
@@ -38,3 +37,8 @@ export default function CoalitionTable(shareState) {
         </div>
         )
     }
+
+    /*
+    
+    
+    */
