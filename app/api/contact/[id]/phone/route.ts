@@ -1,8 +1,5 @@
-// Inquiries to add a phone number to a specific contact in cepc.phone
-import { PrismaClient } from '@prisma/client'
+import prisma from '@/app/db'
 import { NextRequest, NextResponse } from 'next/server'
-const prisma = new PrismaClient()
-
 export async function POST(request: Request, 
     { params }: { params: {id: string } }) {
     const id = params.id    

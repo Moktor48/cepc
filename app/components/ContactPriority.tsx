@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient
+import prisma from "../db"
+
 
 function ContactTable({ID, FirstName, LastName, NexCon}) {
     const [Nex, a, b] = NexCon.toISOString().split('T')

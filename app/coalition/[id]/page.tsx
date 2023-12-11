@@ -1,11 +1,11 @@
 import CoalData from "../../components/CoalData";
 import NoteBox from "@/app/components/NoteBox";
 import AddCoalNote from "../../components/AddCoalNote";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import DeleteCoalition from "@/app/components/DeleteCoalition";
 import ContName from "@/app/components/ContName";
 import ModCoalition from "@/app/components/ModCoalition";
-const prisma = new PrismaClient()
+
 
 export default async function Page( { params }: {params: { id: string } }) {
 

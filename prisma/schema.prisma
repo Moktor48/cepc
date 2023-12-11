@@ -88,3 +88,11 @@ model cont_note {
 
   @@index([contact_id], map: "contact_id")
 }
+
+model user {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique 
+  username  String?   @unique
+  password  String    @db.Text
+  role      String    
+}

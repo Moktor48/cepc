@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+
 
 export default function ContData({id, fname, lname, org, lcont, ncont, ltype, ntype}){
 

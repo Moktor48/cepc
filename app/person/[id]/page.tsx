@@ -1,7 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/app/db";
 import ClientState from "@/app/components/ClientState";
 
-const prisma = new PrismaClient()
+
 
 export default async function Page( { params }: {params: { id: string } }) {
 

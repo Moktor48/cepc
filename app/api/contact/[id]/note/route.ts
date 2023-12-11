@@ -1,8 +1,5 @@
-// Inquiries to notes for specific coalitions in cepc.coal_notes
-
-import { PrismaClient } from '@prisma/client'
+import prisma from '@/app/db'
 import { NextRequest, NextResponse } from 'next/server'
-const prisma = new PrismaClient()
 
 export async function POST(request: Request,
     { params }: { params: {id: string } }) {
