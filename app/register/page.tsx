@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import bcrypt from 'bcrypt'
+
 
 
 export default function RegisterAccount() {
@@ -8,8 +8,8 @@ export default function RegisterAccount() {
         {username: "", password: "", rePassword: ""}
     )
     const [isLoading, setIsLoading] = useState(false)
-    const bcrypt = require('bcrypt')
-    const saltRounds = 12
+
+
 
 
     async function handleChange(e: any) { 
@@ -34,12 +34,7 @@ export default function RegisterAccount() {
         } else {
 
         setIsLoading(true)
-        console.log(formData)
-        const hash = await bcrypt.hash(formData.password, saltRounds)
-        formData.password = hash
 
-        formData.rePassword = ""
-        console.log(formData)
         try {
           fetch('/api/user', {
             method: 'POST',

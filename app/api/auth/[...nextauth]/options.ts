@@ -3,7 +3,13 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/app/db";
-import bcrypt from "bcrypt"
+import { z } from "zod";
+import bcrypt from 'bcryptjs'
+
+const loginUserSchema = z.object({
+    username: z.string().regex(/^[a-z0-9_-]{3, 15}$/g, 'Invalid Username'),
+    password: z.string().min(8, 'Password must have more than 8 characters')
+})
 
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -13,38 +19,51 @@ export const options: NextAuthOptions = {
             credentials: {
                 username: {
                     label: "Username:",
-                    type: "text",
+                    type: "text"
                 },
                 password: {
                     label: "Password:",
-                    type: "password",
+                    type: "password"
                 }
             },
-        async authorize(credentials) {
-            const res = await fetch("/api/user", {
-                method: 'POST',
-                body: JSON.stringify(credentials),
-                headers: { "Content-Type": "application/json" }
-              })
-            const user = await res.json()
-            if (credentials?.username === user.name && credentials?.password === user.password) {
-                return user
-            } else {
-            return null
+        async authorize(credentials, req) {
+
+            const {username, password} = loginUserSchema.parse(credentials)
+
+            const user = await prisma.user.findUnique({
+                where: {username}
+            });
+
+            if (!user) return null;
+
+            const passwordValid = await bcrypt.compare(password, user.password)
+
+            if (!passwordValid) return null;
+
+            return user;
             }
-        }
-    })
-    ],
+
+        })],
+
 
     callbacks: {
+        async session({ session, token }) {
+            session.user.id = token.id;
+            return session;
+
+        },
+
         async jwt({ token, user }) {
             if(user) token.role = user.role
-            return token
-        },
-        async session({ session, token }) {
-            if(session?.user) session.user.role = token.role
-            return session
+            return token;
         }
-    }
+    },
 
+    pages: {
+        signIn: '/login',
+    },
+
+    session: {
+        strategy: 'jwt',
+    },
 }
