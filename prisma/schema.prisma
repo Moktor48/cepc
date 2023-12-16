@@ -8,18 +8,18 @@ generator client {
 }
 
 model coalition {
-  id           String    @id
-  name         String    @db.VarChar(255)
-  priority1    Boolean   @default(false)
-  priority2    Boolean   @default(false)
-  priority3    Boolean   @default(false)
-  phase        String?   @db.VarChar(255)
-  last_contact DateTime? @db.Date
+  id            String    @id
+  name          String    @db.VarChar(255)
+  priority1     Boolean   @default(false)
+  priority2     Boolean   @default(false)
+  priority3     Boolean   @default(false)
+  phase         String?   @db.VarChar(255)
+  last_contact  DateTime? @db.Date
   last_con_type String?   @db.VarChar(255)
-  next_contact DateTime? @db.Date
+  next_contact  DateTime? @db.Date
   next_con_type String?   @db.VarChar(255)
-  junction     junction[]
-  coal_note   coal_note[]
+  junction      junction[]
+  coal_note     coal_note[]
 }
 
 model contact {

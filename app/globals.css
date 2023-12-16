@@ -93,6 +93,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.contFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
   display: grid;
   grid-template-columns: auto 20px 150px auto;
