@@ -19,7 +19,6 @@ export default function EnterContact() {
     
     async function handleSubmit(e: any) {
         e.preventDefault();
-        
         setIsLoading(true)
         const randomID = "contact" + Math.floor(Math.random() * 1000000000).toString()
         formData.id = randomID
